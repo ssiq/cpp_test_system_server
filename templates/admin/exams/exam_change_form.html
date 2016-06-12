@@ -1,0 +1,6 @@
+{% extends "admin/change_form.html" %}
+{% load i18n admin_urls admin_static admin_modify %}
+{% block after_related_objects %}
+{#    {% url opts|admin_urlname:'download_scores' original.pk|admin_urlquote as download_scores_url %}#}
+    <a class="historylink" href="download_scores/">{% trans "下载学生考试成绩" %}</a>
+{% endblock %}

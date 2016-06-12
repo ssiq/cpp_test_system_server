@@ -1,0 +1,13 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_urls admin_static admin_list %}
+
+{% if not is_popup %}
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+<a href="/admin/">首页</a>
+&rsaquo; <a href="/admin/auth/">认证和授权</a>
+&rsaquo; <a href="/admin/auth/user/">用户</a>
+&rsaquo; 批量增加 用户
+</div>
+{% endblock %}
+{% endif %}
