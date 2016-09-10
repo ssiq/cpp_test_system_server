@@ -42,17 +42,36 @@ def register_one_student_view(request):
 
 
 def login_view(request):
+    from exams.models import ExitMd5
     try:
         username = request.POST['username']
         password = request.POST['password']
+        used_key = request.POST['used_key']
         from django.contrib.auth import authenticate
         user = authenticate(username=username, password=password)
         if user is not None:
+            new_login_result = {'new_login': False}
+            new_login_result.update(ok_result)
+            no_exit_login_result = {'new_login': True}
+            no_exit_login_result.update(ok_result)
             if user.is_active:
+                result = new_login_result
+                if used_key != '':
+                    l = ExitMd5.objects.filter(user=user)
+                    if len(l) == 0 or str(l[0].md5) != str(used_key):
+                        pass
+                    else:
+                        result = no_exit_login_result
                 from django.contrib.auth import login
                 login(request, user)
                 request.session[random_code] = random_md5_hash()
-                return JsonResponse(ok_result)
+                used_key = random_md5_hash()
+                result['used_key'] = used_key
+                for t in ExitMd5.objects.filter(user=user):
+                    t.delete()
+                o = ExitMd5.objects.create(user=user, md5=used_key)
+                o.save()
+                return JsonResponse(result)
             else:
                 return generate_error_response('use is not active')
         else:

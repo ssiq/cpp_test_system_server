@@ -76,3 +76,8 @@ class ExamProjects(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='user')
     log = models.FileField('exam log', upload_to='uploads/log/%Y/%m/%d/')
     project = models.FileField('exam project', upload_to='uploads/project/%Y/%m/%d/')
+
+
+class ExitMd5(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='user')
+    md5 = models.CharField(max_length=128, verbose_name='md5')
