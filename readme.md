@@ -82,3 +82,11 @@ if some error happened
     }
     return:
     ok_result
+
+
+# deploy
+
+1. sudo apt-get install apache2 libapache2-mod-wsgi
+2. edit the files in apache file to change the path of the project
+3. copy the cpp_test_system_server.conf file in apache directory to /etc/apache2/sites-available
+   copy the apache2.conf in apache file to /etc/apache2
