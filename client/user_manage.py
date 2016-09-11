@@ -21,5 +21,6 @@ def register_student(sid, password):
     return generate_return(response)
 
 
-def login(username, password):
-    return post(login_url, {'username': username, 'password': password}, [])
+def login(username, password, used_key="", action=(lambda x: None)):
+    return post(login_url, {'username': username, 'password': password, 'used_key': used_key}, [],
+                action=action)

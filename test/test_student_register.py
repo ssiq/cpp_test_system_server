@@ -6,7 +6,7 @@ def test_upload_stu_information():
 
 
 def test_one_student_register():
-    assert register_student('stu5', 'stu5'), 'register student error'
+    assert register_student('stu7', 'stu7'), 'register student error'
 
 
 if __name__ == '__main__':

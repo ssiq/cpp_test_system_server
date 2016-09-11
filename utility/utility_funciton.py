@@ -13,10 +13,11 @@ def is_ok(r):
 
 
 def generate_error_response(msg):
-    return {
+    r = {
         'msg': msg,
-        'result': error_result,
     }
+    r.update(error_result)
+    return r
 
 
 __time_format__ = r'%Y-%m-%d %H:%M:%S'

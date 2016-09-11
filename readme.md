@@ -32,10 +32,8 @@ if some error happened
         'password': ,
         'used_key': ,
     }
-    输入Post:
+    输出:
     {
-        'username': ,
-        'password': ,
         'new_login': ,#False means that the user's last login is not logout
         'used_key': ,#the used key to update
     }
