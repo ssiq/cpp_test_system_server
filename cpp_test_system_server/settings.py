@@ -83,7 +83,7 @@ DATABASES = {
         'NAME': 'cpp_test_server',
         'USER': 'cpp_test',
         'PASSWORD': 'cpp_test',
-        'HOST': '',
+        'HOST': '127.0.0.1',
     }
 }
 
@@ -110,7 +110,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 
-LANGUAGE_CODE = 'zh-cn'
+LANGUAGE_CODE = 'zh-Hans'
 
 TIME_ZONE = 'Asia/Shanghai'
 
