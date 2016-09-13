@@ -1,6 +1,10 @@
 {% extends "admin/base_site.html" %}
 {% load i18n admin_urls admin_static admin_list %}
 
+{% block extrahead %}
+    <link rel="stylesheet" type="text/css" href="{% static "admin/css/forms.css" %}" />
+{% endblock %}
+
 {% if not is_popup %}
 {% block breadcrumbs %}
 <div class="breadcrumbs">
@@ -11,3 +15,39 @@
 </div>
 {% endblock %}
 {% endif %}
+
+{% block content %}
+    {% if show_success %}
+        提交成功用户已经添加
+    {% else %}
+        {% block object-tools %}
+                请提交一个用逗号分隔的csv文件，第一行的列名是username和password
+        {% endblock %}
+
+
+    <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="hidden" name="firstin" value="{{ firstin }}">
+
+    <fieldset class="module aligned wide">
+        <div class="form-row">
+            {% if error %}
+                <ul class="errorlist">
+                {% for i in error %}
+                    <li>{{ i }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+
+            <div>
+                <label class="required" for="id_user_list">用户列表:</label>
+                <input id="id_user_list" name="user_list" type="file" />
+            </div>
+        </div>
+    </fieldset>
+    <div class="submit-row">
+        <input type="submit" value="提交">
+    </div>
+    </form>
+    {% endif %}
+{% endblock %}
