@@ -46,4 +46,5 @@ urlpatterns = [
     url(r'^question/change/$', exams_view.change_question_view),
     url(r'^question/get_list/$', exams_view.get_question_list_view),
     url(r'^%s/$' % get_one_question_url, exams_view.get_question_view),
+    url(r'^%s/$' % upload_exam_project_url, exams_view.upload_exam_log_project),
 ]

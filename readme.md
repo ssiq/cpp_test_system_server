@@ -42,11 +42,13 @@ if some error happened
     如果没有错误发生.返回:
     {
         'result':'ok',
-        'id': list,
-        'name': list,
-        'begin_time': list,
-        'end_time': list,
-        'is_homework': list,
+        'exams':{
+                    'id': list,
+                    'name': list,
+                    'begin_time': list,
+                    'end_time': list,
+                    'is_homework': list,
+                }  
     }
 
 * download_total_exam_url
