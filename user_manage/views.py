@@ -82,6 +82,7 @@ def login_view(request):
             return JsonResponse(generate_error_response('username or password is wrong'))
     except Exception, e:
         print 'some error happened'
+        print e
         print generate_error_response(e.message)
         return JsonResponse(generate_error_response(e.message))
 
