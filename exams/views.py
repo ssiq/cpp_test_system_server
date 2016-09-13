@@ -39,6 +39,7 @@ def exams_to_dict(exams):
         'name': [],
         'begin_time': [],
         'end_time': [],
+        'is_homework': [],
     }
     for exam in exams:
         d['id'].append(exam.id)
