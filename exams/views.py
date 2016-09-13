@@ -144,7 +144,7 @@ def _check_random_code(exam, request):
         else:
             er = er_list[0]
             if er.md5 != request.session[random_code]:
-                raise Exception(u'你不可以两次登陆同一场考试')
+                raise Exception(u'you can not login one exam twice')
 
 
 @check_login
@@ -193,16 +193,26 @@ def download_total_exam(request):
 @check_login
 @catch_exception
 def upload_exam_score_view(request):
+    # print request.POST
+    # print request.body
     eid = request.POST['eid']
+    # print 'eid:{}'.format(eid)
     exam = Exam.objects.get(id=eid)
     _check(exam)
     _check_random_code(exam, request)
+    # print 'all check passed'
     qid_list = request.POST['qid']
     score_list = request.POST['score']
-    for qid, score in zip(qid_list, score_list):
-        question = Question.objects.get(id=qid)
-        score_obj = Score.objects.create(question=question, exam=exam, user=request.user, score=score)
+    if not isinstance(qid_list, list):
+        question = Question.objects.get(id=qid_list)
+        score_obj = Score.objects.create(question=question, exam=exam, user=request.user, score=score_list)
         score_obj.save()
+    else:
+        for qid, score in zip(qid_list, score_list):
+            print 'qid:{}, score:{}'.format(qid, score)
+            question = Question.objects.get(id=qid)
+            score_obj = Score.objects.create(question=question, exam=exam, user=request.user, score=score)
+            score_obj.save()
     return JsonResponse(ok_result)
 
 

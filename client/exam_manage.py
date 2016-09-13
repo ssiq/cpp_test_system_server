@@ -31,6 +31,18 @@ def get_active_exam_list():
                 show_exams)
 
 
+def show_it(x):
+    print x
+
+
+def download_one_exam(eid):
+    return post(download_total_exam_url, {'eid':eid}, [], show_it)
+
+
+def upload_score(eid, qlist, score_list):
+    return post(upload_exam_score_url, {'eid':eid, 'qid': qlist, 'score': score_list}, [], show_it)
+
+
 def create_one_question(path):
     import os
     import scandir

@@ -48,7 +48,7 @@ if some error happened
                     'begin_time': list,
                     'end_time': list,
                     'is_homework': list,
-                }  
+                }
     }
 
 * download_total_exam_url
@@ -85,7 +85,12 @@ if some error happened
     return:
     ok_result
 
-
+# the upload question format
+in the question zip file:
+    |question # this directory contains question description
+    |test_cases # this directory contains test data
+in the test directory every test data has a *.in and *.out file, they have the same name but the different suffix
+    
 # deploy
 
 1. sudo apt-get install apache2 libapache2-mod-wsgi

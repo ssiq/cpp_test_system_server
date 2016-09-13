@@ -38,7 +38,7 @@ urlpatterns = [
     url(r'^%s/$' % create_exam_one_url, exams_view.create_exam_view),
     url(r'^%s/$' % get_exams_list_url, exams_view.get_exam_list_view),
     url(r'^%s/$' % get_active_exams_url, exams_view.get_active_exam_list_view),
-    url(r'^%s/$' % get_one_exam, exams_view.get_one_exam_view),
+    url(r'^%s/$' % get_one_exam_url, exams_view.get_one_exam_view),
     url(r'^%s/$' % create_one_question_url, exams_view.create_question_view),
     url(r'^%s/$' % download_exam_quesiton_view_url, exams_view.download_exam_question_view),
     url(r'^%s/$' % download_total_exam_url, exams_view.download_total_exam),
