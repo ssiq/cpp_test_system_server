@@ -53,9 +53,9 @@ def login_view(request):
         user = authenticate(username=username, password=password)
         if user is not None:
             print 'the user is exit'
-            new_login_result = {'new_login': False}
+            new_login_result = {'new_login': True}
             new_login_result.update(ok_result)
-            no_exit_login_result = {'new_login': True}
+            no_exit_login_result = {'new_login': False}
             no_exit_login_result.update(ok_result)
             if user.is_active:
                 result = new_login_result
