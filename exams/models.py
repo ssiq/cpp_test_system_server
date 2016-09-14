@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 # Create your models here.
 from django.utils.html import escape
+import zipfile
 
 
 class Exam(models.Model):
