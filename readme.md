@@ -51,7 +51,7 @@ if some error happened
                 }
     }
 
-* download_total_exam_url
+* /exam/download_total/  获取整个考试
     input:
     {
         'eid': , #the exam id
@@ -65,7 +65,7 @@ if some error happened
 
     The question_list is an encrypted zip file
 
-* upload_exam_score_view
+* /exam/upload_score/  上传考试分数
     input:
     {
         'eid': # exam id
@@ -75,7 +75,7 @@ if some error happened
     return:
     the ok_result
 
-* upload_exam_log_project
+* /exam/upload_exam_log_project/  上传考试工程和log 
     input:
     {
         'eid': # exam id,

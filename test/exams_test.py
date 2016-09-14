@@ -43,5 +43,5 @@ if __name__ == '__main__':
     # test_create_one_question()
     # test_get_one_question()
     # test_get_exam_question()
-    # test_download_one_exam()
-    test_upload_score()
+    test_download_one_exam()
+    # test_upload_score()
