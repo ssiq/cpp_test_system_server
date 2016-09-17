@@ -23,100 +23,100 @@ import json
 # Note that the names used in these format strings
 # should be used in your code
 #
-# FMT_CREATE = 'create --location=%(loc)s --purpose=crypt'
-# FMT_ADDKEY = 'addkey --location=%(loc)s --status=primary'
+FMT_CREATE = 'create --location=%(loc)s --purpose=crypt'
+FMT_ADDKEY = 'addkey --location=%(loc)s --status=primary'
 #
 
 
-# def _require_dir(loc):
-#     '''Make sure that loc is a directory.
-#     If it does not exist, create it.
-#     '''
-#     if os.path.exists(loc):
-#         if not os.path.isdir(loc):
-#             raise ValueError('%s must be a directory' % loc)
-#     else:
-#         # should we verify that containing dir is 0700?
-#         os.makedirs(loc, 0755)
-#
-#
-# def _tool(fmt, **kwds):
-#     '''Package the call to keyczart.main
-#     which is awkwardly setup for command-line use without
-#     organizing the underlying logic for direct function calls.
-#     '''
-#     return keyczart.main((fmt % kwds).split())
-#
-#
-# def _initialize(loc, **kwds):
-#     '''Initialize a location
-#     create it
-#     add a primary key
-#     '''
-#     _require_dir(loc)
-#     steps = [FMT_CREATE, FMT_ADDKEY]
-#     for step in steps:
-#         _tool(step, loc=loc, **kwds)
-#
-#
-# class Crypter(object):
-#     '''Simplify use of keyczar.Crypter class
-#     '''
-#     location = 'stdkeyset'
-#
-#     @staticmethod
-#     def _read(loc):
-#         return keyczar.Crypter.Read(loc)
-#
-#     def __init__(self, loc=None):
-#         if loc is None:
-#             loc = self.location
-#         try:
-#             self.crypt = self._read(loc)
-#         except KeyczarError:
-#             _initialize(loc)
-#             self.crypt = self._read(loc)
-#
-#         print self.crypt
-#
-#     def encrypt(self, s):
-#         return self.crypt.Encrypt(s)
-#
-#     def decrypt(self, s):
-#         return self.crypt.Decrypt(s)
+def _require_dir(loc):
+    '''Make sure that loc is a directory.
+    If it does not exist, create it.
+    '''
+    if os.path.exists(loc):
+        if not os.path.isdir(loc):
+            raise ValueError('%s must be a directory' % loc)
+    else:
+        # should we verify that containing dir is 0700?
+        os.makedirs(loc, 0755)
 
-BS = 16
-pad = lambda s: s + (BS - len(s) % BS) * chr(BS - len(s) % BS)
-unpad = lambda s: s[:-ord(s[len(s)-1:])]
+
+def _tool(fmt, **kwds):
+    '''Package the call to keyczart.main
+    which is awkwardly setup for command-line use without
+    organizing the underlying logic for direct function calls.
+    '''
+    return keyczart.main((fmt % kwds).split())
+
+
+def _initialize(loc, **kwds):
+    '''Initialize a location
+    create it
+    add a primary key
+    '''
+    _require_dir(loc)
+    steps = [FMT_CREATE, FMT_ADDKEY]
+    for step in steps:
+        _tool(step, loc=loc, **kwds)
 
 
 class Crypter(object):
-    def _pad_key(self, key):
-        return "{: <32}".format(key).encode("utf-8")
+    '''Simplify use of keyczar.Crypter class
+    '''
+    location = 'stdkeyset'
 
-    def __init__(self, loc=None, key=None):
-        import os
-        if key is not None:
-            self.key = self._pad_key(key)
-        else:
-            loc = os.path.join(loc, '1')
-            print loc
-            with open(loc, 'r') as f:
-                self.key = self._pad_key(json.loads(f.read())['aesKeyString'])
-                print self.key
+    @staticmethod
+    def _read(loc):
+        return keyczar.Crypter.Read(loc)
 
-    def encrypt(self, raw):
-        raw = pad(raw)
-        # print AES.block_size
-        iv = Random.new().read(AES.block_size)
-        cipher = AES.new(self.key, AES.MODE_CBC, iv)
-        return base64.b64encode(iv + cipher.encrypt(raw))
+    def __init__(self, loc=None):
+        if loc is None:
+            loc = self.location
+        try:
+            self.crypt = self._read(loc)
+        except KeyczarError:
+            _initialize(loc)
+            self.crypt = self._read(loc)
 
-    def decrypt(self, enc):
-        enc = base64.b64decode(enc)
-        iv = enc[:16]
-        cipher = AES.new(self.key, AES.MODE_CBC, iv)
-        return unpad(cipher.decrypt(enc[16:]))
+        print self.crypt
+
+    def encrypt(self, s):
+        return self.crypt.Encrypt(s)
+
+    def decrypt(self, s):
+        return self.crypt.Decrypt(s)
+
+# BS = 16
+# pad = lambda s: s + (BS - len(s) % BS) * chr(BS - len(s) % BS)
+# unpad = lambda s: s[:-ord(s[len(s)-1:])]
+#
+#
+# class Crypter(object):
+#     def _pad_key(self, key):
+#         return "{: <32}".format(key).encode("utf-8")
+#
+#     def __init__(self, loc=None, key=None):
+#         import os
+#         if key is not None:
+#             self.key = self._pad_key(key)
+#         else:
+#             loc = os.path.join(loc, '1')
+#             print loc
+#             with open(loc, 'r') as f:
+#                 self.key = self._pad_key(json.loads(f.read())['aesKeyString'])
+#                 print self.key
+#
+#     def encrypt(self, raw):
+#         raw = pad(raw)
+#         # print AES.block_size
+#         iv = Random.new().read(AES.block_size)
+#         cipher = AES.new(self.key, AES.MODE_CBC, iv)
+#         return base64.b64encode(iv + cipher.encrypt(raw))
+#
+#     def decrypt(self, enc):
+#         enc = base64.b64decode(enc)
+#         iv = enc[:16]
+#         cipher = AES.new(self.key, AES.MODE_CBC, iv)
+#         return unpad(cipher.decrypt(enc[16:]))
 
 
 if __name__ == '__main__':
