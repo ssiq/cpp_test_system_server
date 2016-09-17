@@ -182,12 +182,17 @@ def download_total_exam(request):
     crypter = Crypter(loc='keys')
     question_list = []
     name_list = []
+    question_id_list = []
     for question in questions:
+        # print question
         question.question.content.open('rb')
         question_list.append(crypter.encrypt(question.question.content.read()))
         name_list.append(question.question.name)
-    res = {'question': question_list, 'name': name_list}
+        # print type(question.question_id)
+        question_id_list.append(question.question_id)
+    res = {'question': question_list, 'name': name_list, 'question_id': question_id_list}
     res.update(ok_result)
+    print res
     return JsonResponse(res)
 
 

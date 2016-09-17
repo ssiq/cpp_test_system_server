@@ -1,5 +1,7 @@
+# -*- coding: utf-8 -*-
 from wsgiref.util import FileWrapper
 
+from django import forms
 from django.conf.urls import patterns
 from django.contrib import admin
 from django.http import HttpResponse
@@ -20,9 +22,54 @@ class ScoreInline(admin.TabularInline):
     extra = 0
 
 
+class QuestionForm(forms.ModelForm):
+    class Meta:
+        model = Question
+        fields = "__all__"
+
+    def clean(self):
+        import re
+        content = self.cleaned_data.get('content')
+        question_directory_pattern = re.compile(r'[^/]+/question/')
+        test_cases_directory_pattern = re.compile(r'[^/]+/test_cases/')
+        try:
+            content.open('rb')
+            f = zipfile.ZipFile(content, 'r')
+        except Exception, e:
+            print e
+            raise forms.ValidationError(u"你上传内容文件不是一个zip包")
+        question_direcory_exist = False
+        test_cases_directory_exist = False
+        for name in f.namelist():
+            if question_directory_pattern.match(name) is not None:
+                question_direcory_exist = True
+            if test_cases_directory_pattern.match(name) is not None:
+                test_cases_directory_exist = True
+
+        if question_direcory_exist and test_cases_directory_exist:
+            pass
+        else:
+            s = u""
+            if not question_direcory_exist:
+                s += u"question子文件夹"
+            if not test_cases_directory_exist:
+                if s != u"":
+                    s += u'和'
+                s += u"test_cases子文件夹"
+            raise forms.ValidationError(u"你提交的zip文件包不包含{}".format(s))
+        return super(QuestionForm, self).clean()
+
+
 @admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):
     readonly_fields = ('create_time', )
+    fieldsets = [(
+                    None, {
+                        'fields': ['name', 'description', 'content'],
+                        'description': u'提交的文件内容应该是一个zip包,里面有两个文件夹,test_cases和question',
+                    }
+    )]
+    form = QuestionForm
 
 
 @admin.register(Exam)

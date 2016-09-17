@@ -1,5 +1,6 @@
 from client_utility import post, zip_in_momery, get_csrf_token, download_file, csrf
 from utility.constant_value import *
+from utility.encrypt import Crypter
 
 
 def create_one_exam(name, begin_time, end_time):
@@ -33,6 +34,12 @@ def get_active_exam_list():
 
 def show_it(x):
     print x
+    # crypter = Crypter(loc='../keys')
+    # for question in x['question']:
+    #     print 'question:{}'.format(question)
+    #     plain = crypter.decrypt(question)
+    #     with open('dest/q.zip', 'wb') as f:
+    #         f.write(plain)
 
 
 def download_one_exam(eid):
