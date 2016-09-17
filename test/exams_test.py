@@ -35,6 +35,12 @@ def test_upload_score():
     assert upload_score('1', ["10"], ["100"]), 'upload score error'
 
 
+def test_upload_projects():
+    with open('dest/q.zip', 'rb') as f:
+        log = f.read()
+        project = log
+        assert upload_project('1', log, project), 'upload log error'
+
 if __name__ == '__main__':
     login('stu7', 'stu7')
     # test_create_one_exam()
@@ -43,5 +49,6 @@ if __name__ == '__main__':
     # test_create_one_question()
     # test_get_one_question()
     # test_get_exam_question()
-    test_download_one_exam()
+    # test_download_one_exam()
     # test_upload_score()
+    test_upload_projects()

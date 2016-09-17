@@ -50,6 +50,10 @@ def upload_score(eid, qlist, score_list):
     return post(upload_exam_score_url, {'eid':eid, 'qid': qlist, 'score': score_list}, [], show_it)
 
 
+def upload_project(eid, log, prpject):
+    return post(upload_exam_project_url, {'eid': eid}, {'log':log, 'project':prpject}, show_it)
+
+
 def create_one_question(path):
     import os
     import scandir

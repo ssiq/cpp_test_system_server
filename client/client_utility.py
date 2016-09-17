@@ -25,6 +25,7 @@ class Token(object):
             s = Token.session
         response = s.get(generate_url(['get_csrf']))
         # print response.cookies
+        print response.cookies['csrftoken']
         return s, response.cookies['csrftoken']
 
 
