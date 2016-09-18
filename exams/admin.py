@@ -93,19 +93,34 @@ class ExamAdmin(admin.ModelAdmin):
 
         questions = ExamQuestion.objects.filter(exam=exam)
         question_weights = {}
+        weight_sum = 0.0
         for q in questions:
             question_weights[q.question_id] = q.percent
+            weight_sum += q.percent
 
         scores = Score.objects.filter(exam=exam)
         student_dict = {}
         for score in scores:
             if score.user.username not in student_dict:
-                student_dict[score.user.username] = 0.0
-            student_dict[score.user.username] += float(question_weights[score.question_id]) * score.score
+                student_dict[score.user.username] = {}
+            if score.question_id in student_dict[score.user.username]:
+                student_dict[score.user.username][score.question_id] = max(score.score,
+                                                                           student_dict[score.user.username][
+                                                                               score.question_id])
+            else:
+                student_dict[score.user.username][score.question_id] = score.score
+
+        score_dict = {}
+        for username, d in student_dict.items():
+            s = 0.0
+            for k, v in d.items():
+                s += float(question_weights[k]) * v
+            s /= float(weight_sum)
+            score_dict[username] = s
 
         dataframe = pd.DataFrame({
-            'student_id': student_dict.keys(),
-            'score': student_dict.values(),
+            'student_id': score_dict.keys(),
+            'score': score_dict.values(),
         })
 
         f = StringIO()
