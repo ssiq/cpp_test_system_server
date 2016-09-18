@@ -197,8 +197,9 @@ def download_total_exam(request):
 
 
 def save_score(request, exam):
-    qid_list = request.POST['qid']
-    score_list = request.POST['score']
+    import json
+    qid_list = json.loads(request.POST['qid'])
+    score_list = json.loads(request.POST['score'])
     if not isinstance(qid_list, list):
         question = Question.objects.get(id=qid_list)
         score_obj = Score.objects.create(question=question, exam=exam, user=request.user, score=score_list)

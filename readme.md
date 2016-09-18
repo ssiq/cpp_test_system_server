@@ -69,8 +69,8 @@ if some error happened
     input:
     {
         'eid': # exam id
-        'qid': # the list of question id in the exam
-        'score': # the score list of the corresponding question
+        'qid': # the list of question id in the exam which should be a json list
+        'score': # the score list of the corresponding question which should be a json list
     }
     return:
     the ok_result
@@ -89,8 +89,8 @@ if some error happened
     input:
     {
         'eid': # exam id
-        'qid': # the list of question id in the exam
-        'score': # the score list of the corresponding question
+        'qid': # the list of question id in the exam which should be a json list
+        'score': # the score list of the corresponding question which should be a json list
         'log': # the log file of the exam, use FILE upload
         'project': # the zipped project files, use FILE upload
     }
