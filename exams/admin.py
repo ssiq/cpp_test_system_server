@@ -132,4 +132,5 @@ class ExamAdmin(admin.ModelAdmin):
 
 @admin.register(ExamRandomMd5)
 class ExamRandomMd5Admin(admin.ModelAdmin):
+    search_fields = ['user__username', ]
     pass
