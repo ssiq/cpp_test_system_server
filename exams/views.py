@@ -196,17 +196,7 @@ def download_total_exam(request):
     return JsonResponse(res)
 
 
-@check_login
-@catch_exception
-def upload_exam_score_view(request):
-    # print request.POST
-    # print request.body
-    eid = request.POST['eid']
-    # print 'eid:{}'.format(eid)
-    exam = Exam.objects.get(id=eid)
-    _check(exam)
-    _check_random_code(exam, request)
-    # print 'all check passed'
+def save_score(request, exam):
     qid_list = request.POST['qid']
     score_list = request.POST['score']
     if not isinstance(qid_list, list):
@@ -219,16 +209,25 @@ def upload_exam_score_view(request):
             question = Question.objects.get(id=qid)
             score_obj = Score.objects.create(question=question, exam=exam, user=request.user, score=score)
             score_obj.save()
-    return JsonResponse(ok_result)
+    return True
 
 
 @check_login
 @catch_exception
-def upload_exam_log_project(request):
+def upload_exam_score_view(request):
+    # print request.POST
+    # print request.body
     eid = request.POST['eid']
+    # print 'eid:{}'.format(eid)
     exam = Exam.objects.get(id=eid)
     _check(exam)
     _check_random_code(exam, request)
+    # print 'all check passed'
+    save_score(request, exam)
+    return JsonResponse(ok_result)
+
+
+def save_log_project(request, exam):
     log_file = request.FILES['log']
     project_file = request.FILES['project']
     ep_list = ExamProjects.objects.filter(user=request.user, exam=exam)
@@ -239,4 +238,26 @@ def upload_exam_log_project(request):
     ep.log = log_file
     ep.project = project_file
     ep.save()
+
+
+@check_login
+@catch_exception
+def upload_exam_log_project(request):
+    eid = request.POST['eid']
+    exam = Exam.objects.get(id=eid)
+    _check(exam)
+    _check_random_code(exam, request)
+    save_log_project(request, exam)
+    return JsonResponse(ok_result)
+
+
+@check_login
+@catch_exception
+def upload_exam_log_project_score(request):
+    eid = request.POST['eid']
+    exam = Exam.objects.get(id=eid)
+    _check(exam)
+    _check_random_code(exam, request)
+    save_score(request, exam)
+    save_log_project(request, exam)
     return JsonResponse(ok_result)

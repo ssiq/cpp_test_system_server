@@ -79,11 +79,23 @@ if some error happened
     input:
     {
         'eid': # exam id,
-        'log': # the log file of the exam
-        'project': # the zipped project files
+        'log': # the log file of the exam, use FILE upload
+        'project': # the zipped project files, use FILE upload
     }
     return:
     ok_result
+
+* /exam/upload_exam_project_and_score/ 同事上传工程,log和成绩
+    input:
+    {
+        'eid': # exam id
+        'qid': # the list of question id in the exam
+        'score': # the score list of the corresponding question
+        'log': # the log file of the exam, use FILE upload
+        'project': # the zipped project files, use FILE upload
+    }
+    return:
+    the ok_result
 
 # the upload question format
 in the question zip file:
