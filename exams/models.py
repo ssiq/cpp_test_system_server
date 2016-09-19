@@ -77,6 +77,13 @@ class ExamProjects(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='user')
     log = models.FileField('exam log', upload_to='uploads/log/%Y/%m/%d/')
     project = models.FileField('exam project', upload_to='uploads/project/%Y/%m/%d/')
+    create_time = models.DateTimeField('create time', default=timezone.now())
+
+    def save(self, *args, **kwargs):
+        ''' On save, update timestamps '''
+        if not self.id:
+            self.create_time = timezone.now()
+        return super(ExamProjects, self).save(*args, **kwargs)
 
 
 class ExitMd5(models.Model):

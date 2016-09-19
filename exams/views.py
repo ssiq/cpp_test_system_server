@@ -12,6 +12,8 @@ from models import *
 from django.utils import timezone
 from django.http import HttpResponse
 from cStringIO import StringIO
+
+from utility.constant_value import key_place
 # Create your views here.
 
 
@@ -179,7 +181,7 @@ def download_total_exam(request):
     _check(exam)
     _check_random_code(exam, request)
     questions = ExamQuestion.objects.filter(exam=exam)
-    crypter = Crypter(loc='keys')
+    crypter = Crypter(loc=key_place)
     question_list = []
     name_list = []
     question_id_list = []
@@ -232,10 +234,10 @@ def save_log_project(request, exam):
     log_file = request.FILES['log']
     project_file = request.FILES['project']
     ep_list = ExamProjects.objects.filter(user=request.user, exam=exam)
-    if ep_list is None or len(ep_list) == 0:
-        ep = ExamProjects.objects.create(user=request.user, exam=exam)
-    else:
-        ep = ep_list[0]
+    # if ep_list is None or len(ep_list) == 0:
+    #     ep = ExamProjects.objects.create(user=request.user, exam=exam)
+    # else:
+    #     ep = ep_list[0]
     ep.log = log_file
     ep.project = project_file
     ep.save()
