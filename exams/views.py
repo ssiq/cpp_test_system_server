@@ -233,9 +233,9 @@ def upload_exam_score_view(request):
 def save_log_project(request, exam):
     log_file = request.FILES['log']
     project_file = request.FILES['project']
-    ep_list = ExamProjects.objects.filter(user=request.user, exam=exam)
+    # ep_list = ExamProjects.objects.filter(user=request.user, exam=exam)
     # if ep_list is None or len(ep_list) == 0:
-    #     ep = ExamProjects.objects.create(user=request.user, exam=exam)
+    ep = ExamProjects.objects.create(user=request.user, exam=exam)
     # else:
     #     ep = ep_list[0]
     ep.log = log_file
