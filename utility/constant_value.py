@@ -2,6 +2,7 @@ ok_result = {'result': 'ok'}
 error_result = {'result': 'error'}
 
 key_place = '/home/ftp_user/data/cpp_test_system_server/keys'
+# key_place = 'keys'
 random_code = 'random_code'
 
 register_students_url = 'register/students'

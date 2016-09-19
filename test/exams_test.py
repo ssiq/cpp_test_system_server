@@ -57,7 +57,7 @@ if __name__ == '__main__':
     # test_create_one_question()
     # test_get_one_question()
     # test_get_exam_question()
-    test_download_one_exam()
+    # test_download_one_exam()
     # test_upload_score()
     # test_upload_projects()
     test_upload_project_and_score()
