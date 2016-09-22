@@ -1,4 +1,6 @@
 from django.http import JsonResponse
+from django.shortcuts import render
+
 from utility_funciton import generate_error_response
 
 
@@ -27,4 +29,13 @@ def catch_exception(func):
         except Exception, e:
             print e
             return JsonResponse(generate_error_response(e.message))
+    return wrapper
+
+
+def web_check_login(func):
+    def wrapper(request, *args, **kwargs):
+        if request.user.is_authenticated():
+            return func(request, *args, **kwargs)
+        else:
+            return render(request, 'user/unlogin.html', locals())
     return wrapper

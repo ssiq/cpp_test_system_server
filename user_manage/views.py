@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 
 from utility.constant_value import ok_result, random_code
 # Create your views here.
+from utility.decorator import web_check_login
 from utility.utility_funciton import generate_error_response, random_md5_hash
 from user_manage import forms
 
@@ -125,10 +126,12 @@ def web_login_view(request):
     return render(request, 'user/login.html', locals())
 
 
+@web_check_login
 def web_home_view(request):
     return render(request, 'user/home.html', locals())
 
 
+@web_check_login
 def web_logout_view(request):
     from django.contrib.auth import logout
     logout(request)
