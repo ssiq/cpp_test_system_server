@@ -52,4 +52,5 @@ urlpatterns = [
     url(r'^$', user_manage_view.web_login_view),
     url(r'^web/$', user_manage_view.web_home_view),
     url(r'^web/logout/$', user_manage_view.web_logout_view),
+    url(r'^web/password_change/$', user_manage_view.web_change_password_view)
 ]

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.http import JsonResponse
 from django.shortcuts import render
 
@@ -37,5 +38,6 @@ def web_check_login(func):
         if request.user.is_authenticated():
             return func(request, *args, **kwargs)
         else:
+            title = u'没有登录'
             return render(request, 'user/unlogin.html', locals())
     return wrapper

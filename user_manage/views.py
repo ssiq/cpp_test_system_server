@@ -99,6 +99,7 @@ def logout_view(request):
 
 
 def web_login_view(request):
+    title = u'登录'
     if request.user.is_authenticated():
         return redirect('/web/')
     login = request.GET.get('login', False)
@@ -128,6 +129,7 @@ def web_login_view(request):
 
 @web_check_login
 def web_home_view(request):
+    title = u'主页'
     return render(request, 'user/home.html', locals())
 
 
@@ -135,4 +137,33 @@ def web_home_view(request):
 def web_logout_view(request):
     from django.contrib.auth import logout
     logout(request)
+    title = u'退出'
     return render(request, 'user/logout.html', locals())
+
+
+@web_check_login
+def web_change_password_view(request):
+    change = request.GET.get('change', False)
+    title = u'修改密码'
+    change_success = False
+    from user_manage.forms import ChangePasswordForm
+    if not change:
+        form = ChangePasswordForm()
+    else:
+        error = True
+        form = ChangePasswordForm(request.POST)
+        if form.is_valid():
+            old_password = form.cleaned_data['old_password']
+            from django.contrib.auth import authenticate
+            user = authenticate(username=request.user.username, password=old_password)
+            if user is not None:
+                request.user.set_password(form.cleaned_data['new_password1'])
+                request.user.save()
+                error = False
+                change_success = True
+            else:
+                error_message = u'你的旧密码无法通过验证'
+        else:
+            error_message = u'请修正下面的错误'
+
+    return render(request, 'user/change_password.html', locals())
