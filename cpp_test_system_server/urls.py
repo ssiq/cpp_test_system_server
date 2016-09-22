@@ -48,4 +48,8 @@ urlpatterns = [
     url(r'^%s/$' % get_one_question_url, exams_view.get_question_view),
     url(r'^%s/$' % upload_exam_project_url, exams_view.upload_exam_log_project),
     url(r'^%s/$' % upload_exam_project_and_score_url, exams_view.upload_exam_log_project_score),
+
+    url(r'^$', user_manage_view.web_login_view),
+    url(r'^web/$', user_manage_view.web_home_view),
+
 ]

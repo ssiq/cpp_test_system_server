@@ -1,8 +1,12 @@
+# -*- coding: utf-8 -*-
 from django.http import JsonResponse
 from django.contrib.auth.models import User
+from django.shortcuts import render, redirect
+
 from utility.constant_value import ok_result, random_code
 # Create your views here.
 from utility.utility_funciton import generate_error_response, random_md5_hash
+from user_manage import forms
 
 
 def add_one_student(username, password):
@@ -91,3 +95,36 @@ def logout_view(request):
     from django.contrib.auth import logout
     logout(request)
     return JsonResponse(ok_result)
+
+
+def web_login_view(request):
+    if request.user is not None:
+        return redirect('/web/')
+    login = request.GET.get('login', False)
+    print login
+    body_class = 'login'
+    if not login:
+        form = forms.LoginForm()
+    else:
+        form = forms.LoginForm(request.POST)
+        login_error = False
+        if form.is_valid():
+            clean_data = form.cleaned_data
+            from django.contrib.auth import authenticate
+            user = authenticate(username=clean_data['username'], password=clean_data['password'])
+            if user is not None:
+                from django.contrib.auth import login
+                login(request, user)
+                return redirect('/web/')
+            else:
+                login_error = True
+                error_message = u'用户名或密码错误'
+        else:
+            login_error = True
+            error_message = u'请修正下面的错误'
+
+    return render(request, 'user/login.html', locals())
+
+
+def web_home_view(request):
+    return render(request, 'user/home.html', locals())

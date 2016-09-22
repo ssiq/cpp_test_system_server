@@ -1,0 +1,53 @@
+{% extends 'user/base.html' %}
+
+
+
+{% block header %}
+        <div id="branding">
+        
+<h1 id="site-name"><a href="/">Cpp Test</a></h1>
+
+        </div>
+        
+
+{% endblock %}
+
+{% block content %}
+
+
+
+
+
+{% if login_error %}
+    <p class="errornote">
+        {{ error_message }}
+    </p>
+{% endif %}
+
+
+<div id="content-main">
+
+
+
+<form action="?login=1" method="post" id="login-form">
+    {% csrf_token %}
+    {% for field in form %}
+        <div class="form-row">
+            {{ field.errors }}
+            {{ field.label_tag }} {{ field }}
+        </div>
+    {% endfor %}
+
+    <div class="submit-row">
+        <label>&nbsp;</label><input type="submit" value="登录" />
+    </div>
+</form>
+
+<script type="text/javascript">
+document.getElementById('id_username').focus()
+</script>
+</div>
+
+
+        <br class="clear" />
+{% endblock %}
