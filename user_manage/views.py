@@ -102,7 +102,6 @@ def web_login_view(request):
         return redirect('/web/')
     login = request.GET.get('login', False)
     print login
-    body_class = 'login'
     if not login:
         form = forms.LoginForm()
     else:

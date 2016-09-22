@@ -1,29 +1,4 @@
-{% extends 'user/base.html' %}
-
-{% block header %}
-        <div id="branding">
-
-<h1 id="site-name"><a href="/admin/">Cpp Test</a></h1>
-
-        </div>
-
-
-        <div id="user-tools">
-
-                欢迎，
-                <strong>{{ request.user.username }}</strong>.
-
-
-
-
-
-                <a href="/web/password_change/">修改密码</a> /
-
-                <a href="/web/logout/">注销</a>
-
-        </div>
-
-{% endblock %}
+{% extends 'user/base_site.html' %}
 
 {% block content %}
     login in
