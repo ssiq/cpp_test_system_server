@@ -98,7 +98,7 @@ def logout_view(request):
 
 
 def web_login_view(request):
-    if request.user is not None:
+    if request.user.is_authenticated():
         return redirect('/web/')
     login = request.GET.get('login', False)
     print login
@@ -127,3 +127,9 @@ def web_login_view(request):
 
 def web_home_view(request):
     return render(request, 'user/home.html', locals())
+
+
+def web_logout_view(request):
+    from django.contrib.auth import logout
+    logout(request)
+    return render(request, 'user/logout.html', locals())
