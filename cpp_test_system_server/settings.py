@@ -131,3 +131,7 @@ DEFAULT_CHARSET = 'utf-8'
 STATIC_URL = '/static/'
 
 STATIC_ROOT = 'static'
+
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = '/home/wlw/PycharmProjects/cpp_test_system_server'

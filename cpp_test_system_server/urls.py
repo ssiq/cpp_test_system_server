@@ -13,7 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url, patterns
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy
 
@@ -22,6 +22,7 @@ from django.conf.urls.static import static
 import exams.views as exams_view
 from utility.constant_value import *
 import views
+import settings
 
 admin.site.site_header = ugettext_lazy('Cpp Test')
 admin.site.index_title = ugettext_lazy('Cpp')
@@ -56,3 +57,10 @@ urlpatterns = [
     url(r'^web/see_scores/$', exams_view.web_see_scores),
     url(r'^web/see_scores/(\d+)/$', exams_view.web_see_one_exam_score),
 ]
+
+media_url = getattr(settings, 'MEDIA_URL', '/media/').lstrip('/')
+urlpatterns = patterns('',
+    url(r'^%s(?P<path>.*)$' % (media_url,), 'django.views.static.serve', {
+        'document_root': settings.MEDIA_ROOT
+    }),
+) + urlpatterns
