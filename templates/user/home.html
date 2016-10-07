@@ -1,5 +1,11 @@
 {% extends 'user/base_site.html' %}
 
 {% block content %}
-    login in
+    <div class="module">
+        {% for l in links %}
+            <tr>
+                <th scope="row"><a href="{{ l.link }}">{{ l.name }}</a></th>
+            </tr>
+        {% endfor %}
+    </div>
 {% endblock %}

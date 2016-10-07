@@ -264,3 +264,49 @@ def upload_exam_log_project_score(request):
     save_score(request, exam)
     save_log_project(request, exam)
     return JsonResponse(ok_result)
+
+
+@check_login
+@catch_exception
+def web_see_scores(request):
+    from exams.models import Score
+    scores = Score.objects.filter(user=request.user)
+    has_joined = True
+    if scores is None or len(scores) == 0:
+        has_joined = False
+    else:
+        joined_exams = set()
+        for score in scores:
+            joined_exams.add(score.exam)
+    return render(request, 'user/scores.html', locals())
+
+
+@check_login
+@catch_exception
+def web_see_one_exam_score(request, eid):
+    from exams.models import Exam, Score, ExamQuestion
+    exam = Exam.objects.get(id=eid)
+    scores = Score.objects.filter(exam=exam, user=request.user)
+    exam_questions = ExamQuestion.objects.filter(exam=exam)
+    weight_dict = {}
+    for question in exam_questions:
+        weight_dict[question.question_id] = question.percent
+    score_dict = {}
+    for score in scores:
+        if score.question_id not in score_dict:
+            score_dict[score.question_id] = {'question': score.question,
+                                             'score': score.score, 'weight': weight_dict[score.question_id]}
+        else:
+            score_dict[score.question_id]['score'] = max(score.score, score_dict[score.question_id]['score'])
+    score_list = score_dict.values()
+    if len(score_dict) == 0:
+        has_joined = False
+    else:
+        has_joined = True
+        total_score = 0.0
+        total_weight = 0.0
+        for score in score_list:
+            total_score = total_score + score['score'] * score['weight']
+            total_weight = total_weight + score['weight']
+        total_score /= total_weight
+    return render(request, 'user/one_exam_score.html', locals())

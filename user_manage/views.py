@@ -130,6 +130,7 @@ def web_login_view(request):
 @web_check_login
 def web_home_view(request):
     title = u'主页'
+    links = [{'link': '/web/see_scores/', 'name': u'查看成绩'}]
     return render(request, 'user/home.html', locals())
 
 

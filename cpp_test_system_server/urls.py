@@ -52,5 +52,7 @@ urlpatterns = [
     url(r'^$', user_manage_view.web_login_view),
     url(r'^web/$', user_manage_view.web_home_view),
     url(r'^web/logout/$', user_manage_view.web_logout_view),
-    url(r'^web/password_change/$', user_manage_view.web_change_password_view)
+    url(r'^web/password_change/$', user_manage_view.web_change_password_view),
+    url(r'^web/see_scores/$', exams_view.web_see_scores),
+    url(r'^web/see_scores/(\d+)/$', exams_view.web_see_one_exam_score),
 ]

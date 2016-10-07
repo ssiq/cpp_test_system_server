@@ -1,0 +1,54 @@
+{% extends 'user/base_site.html' %}
+
+{% block static %}
+    <link rel="stylesheet" type="text/css" href="/static/admin/css/changelists.css" />
+    <script type="text/javascript" src="/admin/jsi18n/"></script>
+    <script type="text/javascript" src="/static/admin/js/core.js"></script>
+    <script type="text/javascript" src="/static/admin/js/vendor/jquery/jquery.js"></script>
+    <script type="text/javascript" src="/static/admin/js/jquery.init.js"></script>
+    <script type="text/javascript" src="/static/admin/js/admin/RelatedObjectLookups.js"></script>
+    <script type="text/javascript" src="/static/admin/js/actions.js"></script>
+    <script type="text/javascript" src="/static/admin/js/urlify.js"></script>
+    <script type="text/javascript" src="/static/admin/js/prepopulate.js"></script>
+    <script type="text/javascript" src="/static/admin/js/vendor/xregexp/xregexp.min.js"></script>
+{% endblock %}
+
+{% block breadcrumbs %}
+    <div class="breadcrumbs">
+<a href="/web/">首页</a>
+&rsaquo; 查看成绩
+</div>
+{% endblock %}
+
+
+{% block content %}
+    {% if has_joined %}
+    <div id="changelist">
+    <table id="result_list">
+    <thead>
+    <tr>
+    <th scope="col"  class="column-__str__">
+
+       <div class="text"><span>考试或作业</span></div>
+       <div class="clear"></div>
+    </th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for exam in joined_exams %}
+        <tr class="row1">
+            <th class="field-__str__">
+                <a href="/web/see_scores/{{ exam.id }}/">{{ exam.name }}</a>
+            </th>
+        </tr>
+    {% endfor %}
+
+    </tbody>
+    </table>
+    </div>
+    {% else %}
+        <p>
+        您还没有参加过任何考试和作业
+        </p>
+    {% endif %}
+{% endblock %}
