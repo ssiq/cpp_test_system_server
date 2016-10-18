@@ -15,6 +15,7 @@ class Exam(models.Model):
     begin_time = models.DateTimeField('exam\'s begin time')
     end_time = models.DateTimeField('exam\'s end time')
     isHomework = models.BooleanField('is homework?', default=False)
+    isPrivate = models.BooleanField('is private?', default=False)
 
     def show_problems(self):
         problems = ExamQuestion.objects.filter(exam=self)

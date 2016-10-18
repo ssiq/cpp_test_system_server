@@ -35,7 +35,7 @@ def change_time_zone(t):
     return timezone.localtime(t)
 
 
-def exams_to_dict(exams):
+def exams_to_dict(exams, request):
     d = {
         'id': [],
         'name': [],
@@ -44,6 +44,8 @@ def exams_to_dict(exams):
         'is_homework': [],
     }
     for exam in exams:
+        if exam.isPrivate and not request.user.is_superuser:
+            continue
         d['id'].append(exam.id)
         d['name'].append(exam.name)
         d['begin_time'].append(change_time_zone(exam.begin_time))
@@ -57,7 +59,7 @@ def exams_to_dict(exams):
 @catch_exception
 def get_exam_list_view(request):
     all_exams = Exam.objects.all()
-    r = {'exams': exams_to_dict(all_exams)}
+    r = {'exams': exams_to_dict(all_exams, request)}
     r.update(ok_result)
     return JsonResponse(r)
 
@@ -67,7 +69,7 @@ def get_exam_list_view(request):
 def get_active_exam_list_view(request):
     now = timezone.now()
     active_exams = Exam.objects.filter(end_time__gt=now, begin_time__lt=now)
-    r = {'exams': exams_to_dict(active_exams)}
+    r = {'exams': exams_to_dict(active_exams, request)}
     r.update(ok_result)
     return JsonResponse(r)
 
