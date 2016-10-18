@@ -63,6 +63,7 @@ class QuestionForm(forms.ModelForm):
 @admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):
     readonly_fields = ('create_time', )
+    list_display = ['name', 'id']
     fieldsets = [(
                     None, {
                         'fields': ['name', 'description', 'content'],
