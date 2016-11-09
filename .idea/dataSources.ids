@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component name="dataSourceStorage">
   <data-source name="Django default" uuid="d3d67004-70ed-4542-861f-c68c8ae121c3">
-    <database-info product="MySQL" version="5.5.52-0ubuntu0.14.04.1" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
+    <database-info product="MySQL" version="5.5.53-0ubuntu0.14.04.1" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
       <extra-name-characters>#@</extra-name-characters>
       <identifier-quote-string>`</identifier-quote-string>
     </database-info>
@@ -419,261 +419,265 @@ model</columns>
         <mandatory>1</mandatory>
         <data-type>tinyint(1)</data-type>
       </column>
-      <index id="107" parent="12" name="name">
+      <column id="107" parent="12" name="isPrivate">
+        <mandatory>1</mandatory>
+        <data-type>tinyint(1)</data-type>
+      </column>
+      <index id="108" parent="12" name="name">
         <columns>name</columns>
         <desc-columns></desc-columns>
         <unique>1</unique>
       </index>
-      <key id="108" parent="12" name="name">
+      <key id="109" parent="12" name="name">
         <columns>name</columns>
         <underlying-index>name</underlying-index>
       </key>
-      <key id="109" parent="12" name="PRIMARY">
+      <key id="110" parent="12" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <column id="110" parent="13" name="id">
+      <column id="111" parent="13" name="id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
         <sequence-identity>1</sequence-identity>
       </column>
-      <column id="111" parent="13" name="percent">
+      <column id="112" parent="13" name="percent">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="112" parent="13" name="exam_id">
+      <column id="113" parent="13" name="exam_id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="113" parent="13" name="question_id">
+      <column id="114" parent="13" name="question_id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <index id="114" parent="13" name="exams_examquestion_7aa0f6ee">
+      <index id="115" parent="13" name="exams_examquestion_7aa0f6ee">
         <columns>question_id</columns>
         <desc-columns></desc-columns>
       </index>
-      <index id="115" parent="13" name="exams_examquestion_exam_id_0520fc5c_fk_exams_exam_id">
+      <index id="116" parent="13" name="exams_examquestion_exam_id_0520fc5c_fk_exams_exam_id">
         <columns>exam_id</columns>
         <desc-columns></desc-columns>
       </index>
-      <key id="116" parent="13" name="PRIMARY">
+      <key id="117" parent="13" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="117" parent="13" name="exams_examquestion_exam_id_0520fc5c_fk_exams_exam_id">
+      <foreign-key id="118" parent="13" name="exams_examquestion_exam_id_0520fc5c_fk_exams_exam_id">
         <columns>exam_id</columns>
         <ref-key>~.exams_exam.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="118" parent="13" name="exams_examquestion_question_id_ef001f21_fk_exams_question_id">
+      <foreign-key id="119" parent="13" name="exams_examquestion_question_id_ef001f21_fk_exams_question_id">
         <columns>question_id</columns>
         <ref-key>~.exams_question.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="119" parent="14" name="id">
+      <column id="120" parent="14" name="id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
         <sequence-identity>1</sequence-identity>
       </column>
-      <column id="120" parent="14" name="name">
+      <column id="121" parent="14" name="name">
         <mandatory>1</mandatory>
         <data-type>varchar(200)</data-type>
       </column>
-      <column id="121" parent="14" name="description">
+      <column id="122" parent="14" name="description">
         <mandatory>1</mandatory>
         <data-type>longtext</data-type>
       </column>
-      <column id="122" parent="14" name="content">
+      <column id="123" parent="14" name="content">
         <mandatory>1</mandatory>
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="123" parent="14" name="create_time">
+      <column id="124" parent="14" name="create_time">
         <mandatory>1</mandatory>
         <data-type>datetime</data-type>
       </column>
-      <index id="124" parent="14" name="name">
+      <index id="125" parent="14" name="name">
         <columns>name</columns>
         <desc-columns></desc-columns>
         <unique>1</unique>
       </index>
-      <key id="125" parent="14" name="name">
+      <key id="126" parent="14" name="name">
         <columns>name</columns>
         <underlying-index>name</underlying-index>
       </key>
-      <key id="126" parent="14" name="PRIMARY">
+      <key id="127" parent="14" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <column id="127" parent="15" name="id">
+      <column id="128" parent="15" name="id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
         <sequence-identity>1</sequence-identity>
       </column>
-      <column id="128" parent="15" name="score">
+      <column id="129" parent="15" name="score">
         <mandatory>1</mandatory>
         <data-type>double</data-type>
       </column>
-      <column id="129" parent="15" name="exam_id">
+      <column id="130" parent="15" name="exam_id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="130" parent="15" name="question_id">
+      <column id="131" parent="15" name="question_id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="131" parent="15" name="user_id">
+      <column id="132" parent="15" name="user_id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <index id="132" parent="15" name="exams_score_exam_id_1108953b_fk_exams_exam_id">
+      <index id="133" parent="15" name="exams_score_exam_id_1108953b_fk_exams_exam_id">
         <columns>exam_id</columns>
         <desc-columns></desc-columns>
       </index>
-      <index id="133" parent="15" name="exams_score_question_id_cf139ba5_fk_exams_question_id">
+      <index id="134" parent="15" name="exams_score_question_id_cf139ba5_fk_exams_question_id">
         <columns>question_id</columns>
         <desc-columns></desc-columns>
       </index>
-      <index id="134" parent="15" name="exams_score_user_id_89b2b39c_fk_auth_user_id">
+      <index id="135" parent="15" name="exams_score_user_id_89b2b39c_fk_auth_user_id">
         <columns>user_id</columns>
         <desc-columns></desc-columns>
       </index>
-      <key id="135" parent="15" name="PRIMARY">
+      <key id="136" parent="15" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="136" parent="15" name="exams_score_exam_id_1108953b_fk_exams_exam_id">
+      <foreign-key id="137" parent="15" name="exams_score_exam_id_1108953b_fk_exams_exam_id">
         <columns>exam_id</columns>
         <ref-key>~.exams_exam.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="137" parent="15" name="exams_score_question_id_cf139ba5_fk_exams_question_id">
+      <foreign-key id="138" parent="15" name="exams_score_question_id_cf139ba5_fk_exams_question_id">
         <columns>question_id</columns>
         <ref-key>~.exams_question.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="138" parent="15" name="exams_score_user_id_89b2b39c_fk_auth_user_id">
+      <foreign-key id="139" parent="15" name="exams_score_user_id_89b2b39c_fk_auth_user_id">
         <columns>user_id</columns>
         <ref-key>~.auth_user.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="139" parent="16" name="id">
+      <column id="140" parent="16" name="id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
         <sequence-identity>1</sequence-identity>
       </column>
-      <column id="140" parent="16" name="log">
+      <column id="141" parent="16" name="log">
         <mandatory>1</mandatory>
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="141" parent="16" name="project">
+      <column id="142" parent="16" name="project">
         <mandatory>1</mandatory>
         <data-type>varchar(100)</data-type>
       </column>
-      <column id="142" parent="16" name="exam_id">
+      <column id="143" parent="16" name="exam_id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="143" parent="16" name="user_id">
+      <column id="144" parent="16" name="user_id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="144" parent="16" name="create_time">
+      <column id="145" parent="16" name="create_time">
         <mandatory>1</mandatory>
         <data-type>datetime</data-type>
       </column>
-      <index id="145" parent="16" name="exams_examprojects_exam_id_9d998b43_fk_exams_exam_id">
+      <index id="146" parent="16" name="exams_examprojects_exam_id_9d998b43_fk_exams_exam_id">
         <columns>exam_id</columns>
         <desc-columns></desc-columns>
       </index>
-      <index id="146" parent="16" name="exams_examprojects_user_id_a38f84b9_fk_auth_user_id">
+      <index id="147" parent="16" name="exams_examprojects_user_id_a38f84b9_fk_auth_user_id">
         <columns>user_id</columns>
         <desc-columns></desc-columns>
       </index>
-      <key id="147" parent="16" name="PRIMARY">
+      <key id="148" parent="16" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="148" parent="16" name="exams_examprojects_exam_id_9d998b43_fk_exams_exam_id">
+      <foreign-key id="149" parent="16" name="exams_examprojects_exam_id_9d998b43_fk_exams_exam_id">
         <columns>exam_id</columns>
         <ref-key>~.exams_exam.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="149" parent="16" name="exams_examprojects_user_id_a38f84b9_fk_auth_user_id">
+      <foreign-key id="150" parent="16" name="exams_examprojects_user_id_a38f84b9_fk_auth_user_id">
         <columns>user_id</columns>
         <ref-key>~.auth_user.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="150" parent="17" name="id">
+      <column id="151" parent="17" name="id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
         <sequence-identity>1</sequence-identity>
       </column>
-      <column id="151" parent="17" name="md5">
+      <column id="152" parent="17" name="md5">
         <mandatory>1</mandatory>
         <data-type>varchar(128)</data-type>
       </column>
-      <column id="152" parent="17" name="exam_id">
+      <column id="153" parent="17" name="exam_id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="153" parent="17" name="user_id">
+      <column id="154" parent="17" name="user_id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <index id="154" parent="17" name="exams_examrandommd5_exam_id_b92ff8a1_fk_exams_exam_id">
+      <index id="155" parent="17" name="exams_examrandommd5_exam_id_b92ff8a1_fk_exams_exam_id">
         <columns>exam_id</columns>
         <desc-columns></desc-columns>
       </index>
-      <index id="155" parent="17" name="exams_examrandommd5_user_id_d4b88680_fk_auth_user_id">
+      <index id="156" parent="17" name="exams_examrandommd5_user_id_d4b88680_fk_auth_user_id">
         <columns>user_id</columns>
         <desc-columns></desc-columns>
       </index>
-      <key id="156" parent="17" name="PRIMARY">
+      <key id="157" parent="17" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="157" parent="17" name="exams_examrandommd5_exam_id_b92ff8a1_fk_exams_exam_id">
+      <foreign-key id="158" parent="17" name="exams_examrandommd5_exam_id_b92ff8a1_fk_exams_exam_id">
         <columns>exam_id</columns>
         <ref-key>~.exams_exam.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="158" parent="17" name="exams_examrandommd5_user_id_d4b88680_fk_auth_user_id">
+      <foreign-key id="159" parent="17" name="exams_examrandommd5_user_id_d4b88680_fk_auth_user_id">
         <columns>user_id</columns>
         <ref-key>~.auth_user.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="159" parent="18" name="id">
+      <column id="160" parent="18" name="id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
         <sequence-identity>1</sequence-identity>
       </column>
-      <column id="160" parent="18" name="md5">
+      <column id="161" parent="18" name="md5">
         <mandatory>1</mandatory>
         <data-type>varchar(128)</data-type>
       </column>
-      <column id="161" parent="18" name="user_id">
+      <column id="162" parent="18" name="user_id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <index id="162" parent="18" name="exams_exitmd5_user_id_ce64cc5f_fk_auth_user_id">
+      <index id="163" parent="18" name="exams_exitmd5_user_id_ce64cc5f_fk_auth_user_id">
         <columns>user_id</columns>
         <desc-columns></desc-columns>
       </index>
-      <key id="163" parent="18" name="PRIMARY">
+      <key id="164" parent="18" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="164" parent="18" name="exams_exitmd5_user_id_ce64cc5f_fk_auth_user_id">
+      <foreign-key id="165" parent="18" name="exams_exitmd5_user_id_ce64cc5f_fk_auth_user_id">
         <columns>user_id</columns>
         <ref-key>~.auth_user.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>

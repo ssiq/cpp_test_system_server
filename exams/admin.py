@@ -89,45 +89,22 @@ class ExamAdmin(admin.ModelAdmin):
     def download_scores(self, request, eid):
         import pandas as pd
         from cStringIO import StringIO
+        from django.db import connection
+        import MySQLdb
+        from collections import deque
+        # db = MySQLdb.connect("localhost", "ana", "anapassword", "cpp_test_server")
         eid = int(eid.split('/')[0])
         exam = Exam.objects.get(id=eid)
 
-        questions = ExamQuestion.objects.filter(exam=exam)
-        question_weights = {}
-        weight_sum = 0.0
-        for q in questions:
-            question_weights[q.question_id] = q.percent
-            weight_sum += q.percent
-
-        scores = Score.objects.filter(exam=exam)
-        student_dict = {}
-        for score in scores:
-            if score.user.username not in student_dict:
-                student_dict[score.user.username] = {}
-            if score.question_id in student_dict[score.user.username]:
-                student_dict[score.user.username][score.question_id] = max(score.score,
-                                                                           student_dict[score.user.username][
-                                                                               score.question_id])
-            else:
-                student_dict[score.user.username][score.question_id] = score.score
-
-        score_dict = {}
-        for username, d in student_dict.items():
-            s = 0.0
-            for k, v in d.items():
-                s += float(question_weights[k]) * v
-            s /= float(weight_sum)
-            score_dict[username] = s
-
-        dataframe = pd.DataFrame({
-            'student_id': score_dict.keys(),
-            'score': score_dict.values(),
-        })
-
-        f = StringIO()
-        dataframe.to_csv(f)
-        response = HttpResponse(f.getvalue(), content_type='application/csv')
-        response['Content-Disposition'] = 'attachment; filename=%s_student_score.csv' % exam.name
+        grade_df = pd.read_sql(
+            'select max(score) as score, u.id, s.question_id from auth_user u, exams_score s where u.id = s.user_id and s.exam_id ={} group by s.question_id, u.id'.format(eid),
+            con=connection)
+        # f = StringIO()
+        response = HttpResponse(content_type='application/csv')
+        # response['Content-Disposition'] = 'attachment;filename="%s_student_score.csv"' % exam.name
+        response['Content-Disposition'] = 'filename="%s_student_score.csv"' % exam.name
+        grade_df.to_csv(response)
+        print response['Content-Disposition']
         return response
 
 
