@@ -97,7 +97,7 @@ class ExamAdmin(admin.ModelAdmin):
         exam = Exam.objects.get(id=eid)
 
         grade_df = pd.read_sql(
-            'select max(score) as score, u.id, s.question_id from auth_user u, exams_score s where u.id = s.user_id and s.exam_id ={} group by s.question_id, u.id'.format(eid),
+            'select max(score) as score, u.username, s.question_id from auth_user u, exams_score s where u.id = s.user_id and s.exam_id ={} group by s.question_id, u.username'.format(eid),
             con=connection)
         # f = StringIO()
         response = HttpResponse(content_type='application/csv')
@@ -110,5 +110,19 @@ class ExamAdmin(admin.ModelAdmin):
 
 @admin.register(ExamRandomMd5)
 class ExamRandomMd5Admin(admin.ModelAdmin):
-    search_fields = ['user__username', ]
+    search_fields = ['=user__username', ]
     readonly_fields = ('exam', 'user', 'md5')
+
+
+@admin.register(ExamProjects)
+class ExamProjectsAdmin(admin.ModelAdmin):
+    search_fields = ['=user__username', '=exam__id']
+    readonly_fields = ('exam', 'user', 'log', 'project', 'create_time')
+    list_display = ['exam', 'user', 'create_time']
+
+
+@admin.register(Score)
+class ScoreAdmin(admin.ModelAdmin):
+    search_fields = ['=user__username', '=exam__id', '=question__id']
+    list_display = ['exam', 'user', 'question', 'score']
+    readonly_fields = ('exam', 'user',  'question', 'score',)
