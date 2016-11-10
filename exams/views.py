@@ -14,6 +14,8 @@ from django.http import HttpResponse
 from cStringIO import StringIO
 
 from utility.constant_value import key_place
+
+from utility.print_err import eprint
 # Create your views here.
 
 
@@ -146,10 +148,12 @@ def _check_random_code(exam, request):
         mac = request.session['MAC']
         mac_list = ExamMac.objects.filter(exam=exam, user=request.user)
         if not mac_list:
+            eprint("The mac is not exit")
             exam_mac = ExamMac.objects.create(user=request.user, mac=mac, exam=exam)
             exam_mac.save()
         else:
             if mac_list[0].mac != mac:
+                eprint("The mac is not match")
                 raise ValueError('You change the PC in one exam')
 
 
@@ -197,7 +201,7 @@ def download_total_exam(request):
         question_id_list.append(question.question_id)
     res = {'question': question_list, 'name': name_list, 'question_id': question_id_list}
     res.update(ok_result)
-    print res
+    # print res
     return JsonResponse(res)
 
 

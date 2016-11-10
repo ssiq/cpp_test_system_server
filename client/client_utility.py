@@ -54,6 +54,8 @@ def post(url, data_dict=dict(), files_list=list(), action=(lambda x: None), hand
     d_dict.update(data_dict)
     response = session.post(generate_url([url]),
                             data=d_dict, files=files_list)
+    print str(session)
+    print session.cookies
     return generate_return(response, action, handle_response)
 
 

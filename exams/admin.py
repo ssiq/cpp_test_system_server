@@ -126,3 +126,11 @@ class ScoreAdmin(admin.ModelAdmin):
     search_fields = ['=user__username', '=exam__id', '=question__id']
     list_display = ['exam', 'user', 'question', 'score']
     readonly_fields = ('exam', 'user',  'question', 'score',)
+
+
+@admin.register(ExamMac)
+class ExamMacAdmin(admin.ModelAdmin):
+    search_fields = ['=user__username', '=exam__id']
+    list_display = ['exam', 'user', 'mac']
+    readonly_fields = ('exam', 'user', 'mac')
+

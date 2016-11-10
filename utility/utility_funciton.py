@@ -4,6 +4,8 @@ from keyczar.errors import KeyczarError
 from constant_value import *
 from django.utils import timezone
 
+import sys
+
 
 def is_ok(r):
     if r['result'] == ok_result['result']:

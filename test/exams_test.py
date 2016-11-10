@@ -50,8 +50,8 @@ def test_upload_project_and_score():
 
 
 if __name__ == '__main__':
-    # login('stu7', 'stu7', mac='24:c7:6f:92:2c:42')
-    login('stu7', 'stu7', mac='24:c7:6f:92:2c:49')
+    login('wlw', '11223344qaz', mac='24:c7:6f:92:2c:42')
+    # login('wlw', '11223344qaz', mac='24:c7:6f:92:2c:49')
     # test_create_one_exam()
     # test_get_all_exams_list()
     # test_get_active_exams_list()
