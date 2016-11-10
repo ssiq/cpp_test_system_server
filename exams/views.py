@@ -142,14 +142,15 @@ def _check(exam):
 
 def _check_random_code(exam, request):
     if not exam.isHomework:
-        er_list = ExamRandomMd5.objects.filter(user=request.user, exam=exam)
-        if er_list is None or len(er_list) == 0:
-            er = ExamRandomMd5.objects.create(user=request.user, exam=exam, md5=request.session[random_code])
-            er.save()
+        print ('MAC' in request.session, )
+        mac = request.session['MAC']
+        mac_list = ExamMac.objects.filter(exam=exam, user=request.user)
+        if not mac_list:
+            exam_mac = ExamMac.objects.create(user=request.user, mac=mac, exam=exam)
+            exam_mac.save()
         else:
-            er = er_list[0]
-            if er.md5 != request.session[random_code]:
-                raise Exception(u'you can not login one exam twice')
+            if mac_list[0].mac != mac:
+                raise ValueError('You change the PC in one exam')
 
 
 @check_login

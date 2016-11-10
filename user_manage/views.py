@@ -53,11 +53,15 @@ def login_view(request):
         username = request.POST['username']
         password = request.POST['password']
         used_key = request.POST['used_key']
+        if 'MAC' not in request.POST:
+            raise KeyError(u'Please use the new plugin')
+        mac = request.POST['MAC']
         from django.contrib.auth import authenticate
         # print 'username:{}, password:{}'.format(username, password)
         user = authenticate(username=username, password=password)
         if user is not None:
-            print 'the user is exit'
+            request.session['MAC'] = mac
+            print 'the user is exist'
             new_login_result = {'new_login': True}
             new_login_result.update(ok_result)
             no_exit_login_result = {'new_login': False}

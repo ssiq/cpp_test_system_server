@@ -90,3 +90,9 @@ class ExamProjects(models.Model):
 class ExitMd5(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='user')
     md5 = models.CharField(max_length=128, verbose_name='md5')
+
+
+class ExamMac(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='user')
+    exam = models.ForeignKey(Exam, on_delete=models.CASCADE, verbose_name='exam')
+    mac = models.CharField(max_length=17, verbose_name='mac')
