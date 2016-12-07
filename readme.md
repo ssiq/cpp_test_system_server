@@ -25,6 +25,14 @@ if some error happened
     没有返回json
     cookie中会有'csrftoken':token
     每次上传时POST中都要有'csrfmiddlewaretoken': token
+    
+* /check_version 告诉服务器插件的版本
+    在Post参数中
+    {
+        'version': ,
+    }
+    在get_csrf之后应该立刻调用这个方法
+    
 * /login 登陆
     input:
     {
