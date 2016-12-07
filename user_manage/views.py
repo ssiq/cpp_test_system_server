@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 
 from utility.constant_value import ok_result, random_code
 # Create your views here.
-from utility.decorator import web_check_login
+from utility.decorator import web_check_login, check_version_compatible
 from utility.utility_funciton import generate_error_response, random_md5_hash
 from user_manage import forms
 
@@ -46,6 +46,7 @@ def register_one_student_view(request):
         return JsonResponse(generate_error_response(e.message))
 
 
+@check_version_compatible
 def login_view(request):
     from exams.models import ExitMd5
     # print 'now in login method'
@@ -96,6 +97,7 @@ def login_view(request):
         return JsonResponse(generate_error_response(e.message))
 
 
+@check_version_compatible
 def logout_view(request):
     from django.contrib.auth import logout
     logout(request)

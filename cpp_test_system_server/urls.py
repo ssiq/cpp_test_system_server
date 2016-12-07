@@ -31,6 +31,7 @@ admin.site.site_title = ugettext_lazy('Cpp Test')
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^get_csrf/$', views.get_csrf_cookie),
+    url(r'^check_version/$', views.check_version),
     # url(r'^download/(.+)/$', ),
     url(r'^%s/$' % register_students_url, user_manage_view.students_register_view),
     url(r'^%s/$' % register_one_student_url, user_manage_view.register_one_student_view),

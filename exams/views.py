@@ -66,6 +66,7 @@ def get_exam_list_view(request):
     return JsonResponse(r)
 
 
+@check_version_compatible
 @check_login
 @catch_exception
 def get_active_exam_list_view(request):
@@ -94,6 +95,7 @@ def create_question_view(request):
     return JsonResponse(ok_result)
 
 
+@check_version_compatible
 @check_login
 @check_permission
 @catch_exception
@@ -119,6 +121,7 @@ def change_question_view(request):
     pass
 
 
+@check_version_compatible
 @check_login
 @check_permission
 @catch_exception
@@ -157,6 +160,7 @@ def _check_random_code(exam, request):
                 raise ValueError('You change the PC in one exam')
 
 
+@check_version_compatible
 @check_login
 @catch_exception
 def download_exam_question_view(request):
@@ -180,6 +184,7 @@ def download_exam_question_view(request):
     return JsonResponse(res)
 
 
+@check_version_compatible
 @check_login
 @catch_exception
 def download_total_exam(request):
@@ -222,6 +227,7 @@ def save_score(request, exam):
     return True
 
 
+@check_version_compatible
 @check_login
 @catch_exception
 def upload_exam_score_view(request):
@@ -250,6 +256,7 @@ def save_log_project(request, exam):
     ep.save()
 
 
+@check_version_compatible
 @check_login
 @catch_exception
 def upload_exam_log_project(request):
@@ -261,6 +268,7 @@ def upload_exam_log_project(request):
     return JsonResponse(ok_result)
 
 
+@check_version_compatible
 @check_login
 @catch_exception
 def upload_exam_log_project_score(request):

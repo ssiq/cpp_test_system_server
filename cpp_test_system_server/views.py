@@ -2,6 +2,8 @@ from django.http import HttpResponse
 from django.conf import settings
 from wsgiref.util import FileWrapper
 
+from utility.decorator import catch_exception
+
 
 def get_csrf_cookie(request):
     from django.middleware.csrf import get_token
@@ -18,3 +20,10 @@ def down_load_file(request, url):
     response['Content-Disposition'] = 'attachment; filename=%s.zip' % name
     return response
 
+
+@catch_exception
+def check_version(request):
+    version = request.POST.get('version', None)
+    request.session['version'] = version
+    print 'accept version:{}'.format(version)
+    return HttpResponse()

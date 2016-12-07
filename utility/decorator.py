@@ -2,6 +2,7 @@
 from django.http import JsonResponse
 from django.shortcuts import render
 
+from utility.constant_value import compatible_version
 from utility_funciton import generate_error_response
 
 
@@ -11,6 +12,17 @@ def check_login(func):
             return func(request, *args, **kwargs)
         else:
             return JsonResponse(generate_error_response('please login'))
+    return wrapper
+
+
+def check_version_compatible(func):
+    def wrapper(request, *args, **kwargs):
+        print 'check the version of the plugin'
+        version = request.session.get('version', None)
+        if version is not None and version in compatible_version:
+            return func(request, *args, **kwargs)
+        else:
+            return JsonResponse(generate_error_response('the plugin is not the newest plugin, please update'))
     return wrapper
 
 

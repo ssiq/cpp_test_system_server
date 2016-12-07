@@ -1,1 +1,1 @@
-server_ip = r'http://219.219.113.227/'
+server_ip = r'http://127.0.0.1:8000'
