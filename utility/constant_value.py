@@ -22,4 +22,4 @@ upload_exam_project_url = 'exam/upload_exam_log_project'
 upload_exam_project_and_score_url = 'exam/upload_exam_project_and_score'
 
 
-compatible_version = ['vs-1.0.7']
+compatible_version = ['1.0.8']

@@ -19,10 +19,18 @@ def check_version_compatible(func):
     def wrapper(request, *args, **kwargs):
         print 'check the version of the plugin'
         version = request.session.get('version', None)
-        if version is not None and version in compatible_version:
-            return func(request, *args, **kwargs)
-        else:
-            return JsonResponse(generate_error_response('the plugin is not the newest plugin, please update'))
+        r = JsonResponse(generate_error_response('the plugin is not the newest plugin, please update'))
+        compatible = True
+        if version is not None:
+            vs = version.split('.')
+            ls = compatible_version[0].split('.')
+            for i in xrange(min(len(vs), len(ls))):
+                if ls[i] > vs[i]:
+                    compatible = False
+            if compatible:
+                if len(ls) <= len(vs):
+                    r = func(request, *args, **kwargs)
+        return r
     return wrapper
 
 
