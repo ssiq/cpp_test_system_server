@@ -28,7 +28,7 @@ class Token(object):
         print response.cookies['csrftoken']
         csrf_token = response.cookies['csrftoken']
         response = s.post(generate_url(['check_version']), data={
-            csrf: csrf_token, 'version': 'vs-1.0.7'})
+            csrf: csrf_token, 'version': '1.0.9.1'})
         print 'check_version status:{}'.format(response.status_code)
         return s, csrf_token
 
