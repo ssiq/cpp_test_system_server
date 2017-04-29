@@ -253,6 +253,15 @@ def save_log_project(request, exam):
     #     ep = ep_list[0]
     ep.log = log_file
     ep.project = project_file
+    has_monitor = int(request.POST['hasMonitor'])
+    has_browser = int(request.POST['hasChrome'])
+    print("has monitor:{}, has browser:{}".format(has_monitor, has_browser))
+    ep.has_monitor = has_monitor
+    if has_monitor:
+        ep.monitor = request.FILES['monitor']
+    ep.has_browser = has_browser
+    if has_browser:
+        ep.browser = request.FILES['chrome']
     ep.save()
 
 

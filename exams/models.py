@@ -78,6 +78,12 @@ class ExamProjects(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='user')
     log = models.FileField('exam log', upload_to='uploads/log/%Y/%m/%d/')
     project = models.FileField('exam project', upload_to='uploads/project/%Y/%m/%d/')
+    monitor = models.FileField('exam monitor file', upload_to='uploads/project/%Y/%m/%d/',
+                               default='uploads/default_monitor.txt')
+    browser = models.FileField('exam browser file', upload_to='uploads/project/%Y/%m/%d/',
+                               default='uploads/default_browser.txt')
+    has_monitor = models.BooleanField('has monitor file', default=False)
+    has_browser = models.BooleanField('has browser file', default=False)
     create_time = models.DateTimeField('create time', default=timezone.now())
 
     def save(self, *args, **kwargs):

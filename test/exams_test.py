@@ -40,6 +40,10 @@ def test_upload_projects():
         log = f.read()
         project = log
         assert upload_project('1', log, project), 'upload log error'
+        assert upload_project('1', log, project, has_monitor=1, monitor=log), 'upload log error'
+        assert upload_project('1', log, project, has_browser=1, browser=log), 'upload log error'
+        assert upload_project('1', log, project, has_monitor=1, monitor=log,
+                              has_browser=1, browser=log), 'upload log error'
 
 
 def test_upload_project_and_score():
@@ -47,6 +51,12 @@ def test_upload_project_and_score():
         log = f.read()
         project = log
         assert upload_project_and_score('1', ["10"], ["100"], log, project), 'upload score and log error'
+        assert upload_project_and_score('1', ["10"], ["100"], log, project, has_monitor=1, monitor=log), \
+            'upload score and log error'
+        assert upload_project_and_score('1', ["10"], ["100"], log, project, has_browser=1, browser=log), \
+            'upload score and log error'
+        assert upload_project_and_score('1', ["10"], ["100"], log, project, has_monitor=1, monitor=log,
+                                        has_browser=1, browser=log), 'upload score and log error'
 
 
 if __name__ == '__main__':
@@ -58,7 +68,7 @@ if __name__ == '__main__':
     # test_create_one_question()
     # test_get_one_question()
     # test_get_exam_question()
-    test_download_one_exam()
+    # test_download_one_exam()
     # test_upload_score()
-    # test_upload_projects()
+    test_upload_projects()
     test_upload_project_and_score()

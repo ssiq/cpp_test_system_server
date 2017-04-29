@@ -50,13 +50,26 @@ def upload_score(eid, qlist, score_list):
     return post(upload_exam_score_url, {'eid':eid, 'qid': qlist, 'score': score_list}, [], show_it)
 
 
-def upload_project(eid, log, prpject):
-    return post(upload_exam_project_url, {'eid': eid}, {'log':log, 'project':prpject}, show_it)
+def upload_project(eid, log, prpject, has_monitor=0, has_browser=0, monitor='empty', browser='empty'):
+    file_field = {'log':log, 'project':prpject}
+    if has_monitor:
+        file_field['monitor'] = monitor
+    if has_browser:
+        file_field['chrome'] = browser
+    return post(upload_exam_project_url, {'eid': eid, 'hasMonitor': has_monitor, 'hasChrome': has_browser},
+                file_field, show_it)
 
 
-def upload_project_and_score(eid, qlist, score_list, log, prpject):
-    return post(upload_exam_project_and_score_url, {'eid':eid, 'qid': qlist, 'score': score_list},
-                {'log': log, 'project': prpject}, show_it)
+def upload_project_and_score(eid, qlist, score_list, log, prpject,
+                             has_monitor=0, has_browser=0, monitor='empty', browser='empty'):
+    file_field = {'log': log, 'project': prpject}
+    if has_monitor:
+        file_field['monitor'] = monitor
+    if has_browser:
+        file_field['chrome'] = browser
+    return post(upload_exam_project_and_score_url, {'eid':eid, 'qid': qlist, 'score': score_list,
+                                                    'hasMonitor': has_monitor, 'hasChrome': has_browser},
+                file_field, show_it)
 
 
 def create_one_question(path):
