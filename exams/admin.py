@@ -117,7 +117,8 @@ class ExamRandomMd5Admin(admin.ModelAdmin):
 @admin.register(ExamProjects)
 class ExamProjectsAdmin(admin.ModelAdmin):
     search_fields = ['=user__username', '=exam__id']
-    readonly_fields = ('exam', 'user', 'log', 'project', 'create_time')
+    readonly_fields = ('exam', 'user', 'log', 'project', 'create_time',
+                       'monitor', 'browser', 'has_monitor', 'has_browser')
     list_display = ['exam', 'user', 'create_time']
 
 
