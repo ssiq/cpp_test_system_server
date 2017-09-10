@@ -592,134 +592,150 @@ model</columns>
         <mandatory>1</mandatory>
         <data-type>datetime</data-type>
       </column>
-      <index id="147" parent="16" name="exams_examprojects_exam_id_9d998b43_fk_exams_exam_id">
+      <column id="147" parent="16" name="browser">
+        <mandatory>1</mandatory>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <column id="148" parent="16" name="has_browser">
+        <mandatory>1</mandatory>
+        <data-type>tinyint(1)</data-type>
+      </column>
+      <column id="149" parent="16" name="has_monitor">
+        <mandatory>1</mandatory>
+        <data-type>tinyint(1)</data-type>
+      </column>
+      <column id="150" parent="16" name="monitor">
+        <mandatory>1</mandatory>
+        <data-type>varchar(100)</data-type>
+      </column>
+      <index id="151" parent="16" name="exams_examprojects_exam_id_9d998b43_fk_exams_exam_id">
         <columns>exam_id</columns>
         <desc-columns></desc-columns>
       </index>
-      <index id="148" parent="16" name="exams_examprojects_user_id_a38f84b9_fk_auth_user_id">
+      <index id="152" parent="16" name="exams_examprojects_user_id_a38f84b9_fk_auth_user_id">
         <columns>user_id</columns>
         <desc-columns></desc-columns>
       </index>
-      <key id="149" parent="16" name="PRIMARY">
+      <key id="153" parent="16" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="150" parent="16" name="exams_examprojects_exam_id_9d998b43_fk_exams_exam_id">
+      <foreign-key id="154" parent="16" name="exams_examprojects_exam_id_9d998b43_fk_exams_exam_id">
         <columns>exam_id</columns>
         <ref-key>~.exams_exam.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="151" parent="16" name="exams_examprojects_user_id_a38f84b9_fk_auth_user_id">
+      <foreign-key id="155" parent="16" name="exams_examprojects_user_id_a38f84b9_fk_auth_user_id">
         <columns>user_id</columns>
         <ref-key>~.auth_user.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="152" parent="17" name="id">
+      <column id="156" parent="17" name="id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
         <sequence-identity>1</sequence-identity>
       </column>
-      <column id="153" parent="17" name="md5">
+      <column id="157" parent="17" name="md5">
         <mandatory>1</mandatory>
         <data-type>varchar(128)</data-type>
       </column>
-      <column id="154" parent="17" name="exam_id">
+      <column id="158" parent="17" name="exam_id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="155" parent="17" name="user_id">
+      <column id="159" parent="17" name="user_id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <index id="156" parent="17" name="exams_examrandommd5_exam_id_b92ff8a1_fk_exams_exam_id">
+      <index id="160" parent="17" name="exams_examrandommd5_exam_id_b92ff8a1_fk_exams_exam_id">
         <columns>exam_id</columns>
         <desc-columns></desc-columns>
       </index>
-      <index id="157" parent="17" name="exams_examrandommd5_user_id_d4b88680_fk_auth_user_id">
+      <index id="161" parent="17" name="exams_examrandommd5_user_id_d4b88680_fk_auth_user_id">
         <columns>user_id</columns>
         <desc-columns></desc-columns>
       </index>
-      <key id="158" parent="17" name="PRIMARY">
+      <key id="162" parent="17" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="159" parent="17" name="exams_examrandommd5_exam_id_b92ff8a1_fk_exams_exam_id">
+      <foreign-key id="163" parent="17" name="exams_examrandommd5_exam_id_b92ff8a1_fk_exams_exam_id">
         <columns>exam_id</columns>
         <ref-key>~.exams_exam.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="160" parent="17" name="exams_examrandommd5_user_id_d4b88680_fk_auth_user_id">
+      <foreign-key id="164" parent="17" name="exams_examrandommd5_user_id_d4b88680_fk_auth_user_id">
         <columns>user_id</columns>
         <ref-key>~.auth_user.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="161" parent="18" name="id">
+      <column id="165" parent="18" name="id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
         <sequence-identity>1</sequence-identity>
       </column>
-      <column id="162" parent="18" name="md5">
+      <column id="166" parent="18" name="md5">
         <mandatory>1</mandatory>
         <data-type>varchar(128)</data-type>
       </column>
-      <column id="163" parent="18" name="user_id">
+      <column id="167" parent="18" name="user_id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <index id="164" parent="18" name="exams_exitmd5_user_id_ce64cc5f_fk_auth_user_id">
+      <index id="168" parent="18" name="exams_exitmd5_user_id_ce64cc5f_fk_auth_user_id">
         <columns>user_id</columns>
         <desc-columns></desc-columns>
       </index>
-      <key id="165" parent="18" name="PRIMARY">
+      <key id="169" parent="18" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="166" parent="18" name="exams_exitmd5_user_id_ce64cc5f_fk_auth_user_id">
+      <foreign-key id="170" parent="18" name="exams_exitmd5_user_id_ce64cc5f_fk_auth_user_id">
         <columns>user_id</columns>
         <ref-key>~.auth_user.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <column id="167" parent="19" name="id">
+      <column id="171" parent="19" name="id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
         <sequence-identity>1</sequence-identity>
       </column>
-      <column id="168" parent="19" name="mac">
+      <column id="172" parent="19" name="mac">
         <mandatory>1</mandatory>
         <data-type>varchar(17)</data-type>
       </column>
-      <column id="169" parent="19" name="exam_id">
+      <column id="173" parent="19" name="exam_id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <column id="170" parent="19" name="user_id">
+      <column id="174" parent="19" name="user_id">
         <mandatory>1</mandatory>
         <data-type>int(11)</data-type>
       </column>
-      <index id="171" parent="19" name="exams_exammac_exam_id_5a8ba1a4_fk_exams_exam_id">
+      <index id="175" parent="19" name="exams_exammac_exam_id_5a8ba1a4_fk_exams_exam_id">
         <columns>exam_id</columns>
         <desc-columns></desc-columns>
       </index>
-      <index id="172" parent="19" name="exams_exammac_user_id_95317e0a_fk_auth_user_id">
+      <index id="176" parent="19" name="exams_exammac_user_id_95317e0a_fk_auth_user_id">
         <columns>user_id</columns>
         <desc-columns></desc-columns>
       </index>
-      <key id="173" parent="19" name="PRIMARY">
+      <key id="177" parent="19" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>
-      <foreign-key id="174" parent="19" name="exams_exammac_exam_id_5a8ba1a4_fk_exams_exam_id">
+      <foreign-key id="178" parent="19" name="exams_exammac_exam_id_5a8ba1a4_fk_exams_exam_id">
         <columns>exam_id</columns>
         <ref-key>~.exams_exam.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>
         <cascade-delete-rule>restrict</cascade-delete-rule>
       </foreign-key>
-      <foreign-key id="175" parent="19" name="exams_exammac_user_id_95317e0a_fk_auth_user_id">
+      <foreign-key id="179" parent="19" name="exams_exammac_user_id_95317e0a_fk_auth_user_id">
         <columns>user_id</columns>
         <ref-key>~.auth_user.PRIMARY</ref-key>
         <cascade-update-rule>restrict</cascade-update-rule>

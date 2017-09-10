@@ -18,6 +18,8 @@ from keyczar.errors import KeyczarError
 import base64
 from Crypto.Cipher import AES
 from Crypto import Random
+from Crypto.PublicKey import RSA
+from Crypto.Cipher import PKCS1_OAEP
 import json
 
 # Note that the names used in these format strings
@@ -119,12 +121,35 @@ class Crypter(object):
         return unpad(cipher.decrypt(enc[16:]))
 
 
+class RsaCrypter(object):
+    def __init__(self, loc,):
+        encrypt_path = os.path.join(loc, 'encrypt.key')
+        decrypt_path = os.path.join(loc, 'decrypt.key')
+        with open(encrypt_path, 'r') as f:
+            self.encrypt_key = RSA.importKey(base64.b64decode(f.read()))
+            self.encrypt_key = PKCS1_OAEP.new(self.encrypt_key)
+
+        with open(decrypt_path, 'r') as f:
+            self.decrypt_key = RSA.importKey(base64.b64decode(f.read()))
+            self.decrypt_key = PKCS1_OAEP.new(self.decrypt_key)
+
+    def encrypt(self, raw):
+        return self.encrypt_key.encrypt(raw).encode('base64')
+
+    def decrypt(self, enc):
+        return self.decrypt_key.decrypt(base64.b64decode(enc))
+
+
 if __name__ == '__main__':
-    crypter = Crypter('../keys')
+    # crypter = Crypter('../keys')
     input = 'Library Reference (keep this under your pillow)'
-    print len(input), input
-    c = crypter.encrypt( input)
-    crypter = Crypter('../keys')
-    print len(c), c
-    plain = crypter.decrypt( c)
-    assert plain == input, ' in<%s>\nout<%s>' % (input, plain)
+    # print len(input), input
+    # c = crypter.encrypt( input)
+    # crypter = Crypter('../keys')
+    # print len(c), c
+    # plain = crypter.decrypt( c)
+    # assert plain == input, ' in<%s>\nout<%s>' % (input, plain)
+    c = RsaCrypter('../rsa_key/')
+    print("to encrypt {}".format(input))
+    en = c.encrypt(input)
+    print('decode it as:{}'.format(c.decrypt(en)))
