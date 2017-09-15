@@ -1,6 +1,6 @@
 from client_utility import post, zip_in_momery, get_csrf_token, download_file, csrf
 from utility.constant_value import *
-from utility.encrypt import Crypter
+from utility.encrypt import Crypter, RsaCrypter
 
 
 def create_one_exam(name, begin_time, end_time):
@@ -33,17 +33,29 @@ def get_active_exam_list():
 
 
 def show_it(x):
-    print x
-    # crypter = Crypter(loc='../keys')
-    # for question in x['question']:
-    #     print 'question:{}'.format(question)
-    #     plain = crypter.decrypt(question)
-    #     with open('dest/q.zip', 'wb') as f:
-    #         f.write(plain)
+    import io
+    import zipfile
+    import itertools
+    crypter = Crypter(loc='../keys')
+    input_output_rsa = RsaCrypter(loc="../rsa_key")
+    for question in x['question']:
+        print 'question:{}'.format(question)
+        plain = crypter.decrypt(question)
+        out_io_buffer = io.BytesIO()
+        with zipfile.ZipFile(out_io_buffer, "a", zipfile.ZIP_DEFLATED, False) as out_zip, \
+             zipfile.ZipFile(io.BytesIO(plain)) as in_zip:
+            for t in itertools.ifilter(lambda x: not(x.endswith("in") or x.endswith("out")),
+                                       in_zip.namelist()):
+                out_zip.writestr(t, in_zip.read(t))
+            for t in itertools.ifilter(lambda x: x.endswith("in") or x.endswith("out"),
+                                       in_zip.namelist()):
+                out_zip.writestr(t, input_output_rsa.decrypt(in_zip.read(t)))
+        with open('dest/q.zip', 'wb') as f:
+            f.write(out_io_buffer.getvalue())
 
 
 def download_one_exam(eid):
-    return post(download_total_exam_url, {'eid':eid}, [], show_it)
+    return post(download_total_exam_url, {'eid': eid}, [], show_it)
 
 
 def upload_score(eid, qlist, score_list):

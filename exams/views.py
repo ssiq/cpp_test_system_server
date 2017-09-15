@@ -1,19 +1,22 @@
 # -*- coding: utf-8 -*-
 from wsgiref.util import FileWrapper
 
+import io
 from django.http import JsonResponse
 from django.contrib.auth.models import User
 from utility.constant_value import ok_result, random_code
 from utility.utility_funciton import strptime
 from utility.utility_funciton import generate_error_response
 from utility.decorator import *
-from utility.encrypt import Crypter
+from utility.encrypt import Crypter, RsaCrypter
 from models import *
 from django.utils import timezone
 from django.http import HttpResponse
 from cStringIO import StringIO
+import zipfile
+import itertools
 
-from utility.constant_value import key_place
+from utility.constant_value import key_place, rsa_input_key_place, rsa_output_key_place, is_encrypt
 
 from utility.print_err import eprint
 # Create your views here.
@@ -184,6 +187,32 @@ def download_exam_question_view(request):
     return JsonResponse(res)
 
 
+def crypt_question(id, question):
+    """
+    :param id: The question id
+    :param question: the question content zipfile
+    :return: the crypt file bytes
+    """
+    crypter = Crypter(loc=key_place)
+    if not is_encrypt:
+        return crypter.encrypt(question)
+    input_rsa = RsaCrypter(loc=rsa_input_key_place)
+    output_rsa = RsaCrypter(loc=rsa_output_key_place)
+    zip_f = zipfile.ZipFile(io.BytesIO(question), 'r')
+    zip_buffer = io.BytesIO()
+
+    def crypt(rsa, ends, to_zip):
+        for input_name in itertools.ifilter(lambda x: x.endswith(ends), zip_f.namelist()):
+            with zip_f.open(input_name, mode='r') as f:
+                intput_context = f.read()
+            to_zip.writestr(input_name, rsa.encrypt(intput_context))
+    with zipfile.ZipFile(zip_buffer, "a", zipfile.ZIP_DEFLATED, False) as to_zip:
+        crypt(input_rsa, "in", to_zip)
+        crypt(output_rsa, "out", to_zip)
+        for name in itertools.ifilter(lambda x: not (x.endswith("in") or x.endswith("out")), zip_f.namelist()):
+            to_zip.writestr(name, zip_f.read(name))
+    return crypter.encrypt(zip_buffer.getvalue())
+
 @check_version_compatible
 @check_login
 @catch_exception
@@ -193,14 +222,13 @@ def download_total_exam(request):
     _check(exam)
     _check_random_code(exam, request)
     questions = ExamQuestion.objects.filter(exam=exam)
-    crypter = Crypter(loc=key_place)
     question_list = []
     name_list = []
     question_id_list = []
     for question in questions:
         # print question
         question.question.content.open('rb')
-        question_list.append(crypter.encrypt(question.question.content.read()))
+        question_list.append(crypt_question(question.question_id, question.question.content.read()))
         name_list.append(question.question.name)
         # print type(question.question_id)
         question_id_list.append(question.question_id)

@@ -1,8 +1,12 @@
 ok_result = {'result': 'ok'}
 error_result = {'result': 'error'}
 
-key_place = '/home/ftp_user/data/cpp_test_system_server/keys'
-rsa_key_place = '/home/wlw/PycharmProjects/cpp_test_system_server/rsa_key/encrypt.key'
+# key_place = '/home/ftp_user/data/cpp_test_system_server/keys'
+key_place = "/home/wlw/PycharmProjects/cpp_test_system_server/keys"
+rsa_input_key_place = '/home/wlw/PycharmProjects/cpp_test_system_server/rsa_key/'
+rsa_output_key_place = '/home/wlw/PycharmProjects/cpp_test_system_server/rsa_key/'
+is_encrypt = True
+
 # key_place = 'keys'
 random_code = 'random_code'
 
