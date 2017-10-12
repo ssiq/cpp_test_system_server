@@ -117,3 +117,29 @@ in the test directory every test data has a *.in and *.out file, they have the s
 2. edit the files in apache file to change the path of the project
 3. copy the cpp_test_system_server.conf file in apache directory to /etc/apache2/sites-available
    copy the apache2.conf in apache file to /etc/apache2
+
+
+# Config
+
+- Update `cpp_test_system_server/settings.py`
+- Update `utility/constant_value.py`
+- install python2.7
+- install django
+```
+conda install django
+```
+- install mysql-python using conda
+```
+conda install MySQL-python
+```
+- install mysql
+- create user & grant privilege
+```
+create user 'cpp_test'@'localhost' identified by 'cpp_test';
+GRANT ALL PRIVILEGES ON * . * TO 'cpp_test'@'localhost';
+```
+- create database (had better set mysql server default charset to utf8mb4)
+```
+CREATE DATABASE cpp_test_server CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+```
+- install keyczar using pip -- the same pip binary correspond to your python2.7

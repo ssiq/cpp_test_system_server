@@ -12,9 +12,10 @@ Author: kvamlnk
 
 import os
 
-from keyczar import keyczar
-from keyczar import keyczart
-from keyczar.errors import KeyczarError
+# TODO fail to import keyczar
+# from keyczar import keyczar
+# from keyczar import keyczart
+# from keyczar.errors import KeyczarError
 import base64
 from Crypto.Cipher import AES
 from Crypto import Random

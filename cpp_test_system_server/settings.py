@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # above apps are included by default
     'user_manage',
     'exams',
 ]
@@ -84,6 +85,7 @@ DATABASES = {
         'USER': 'cpp_test',
         'PASSWORD': 'cpp_test',
         'HOST': '127.0.0.1',
+        'OPTIONS': {'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"}
     }
 }
 
@@ -134,4 +136,4 @@ STATIC_ROOT = 'static'
 
 MEDIA_URL = '/media/'
 
-MEDIA_ROOT = '/home/wlw/PycharmProjects/cpp_test_system_server'
+MEDIA_ROOT = '../cpp_test_system_server'

@@ -11,7 +11,7 @@ import zipfile
 
 
 class Exam(models.Model):
-    name = models.CharField('exam\'s name', unique=True, max_length=200)
+    name = models.CharField('exam\'s name', unique=True, max_length=100)
     begin_time = models.DateTimeField('exam\'s begin time')
     end_time = models.DateTimeField('exam\'s end time')
     isHomework = models.BooleanField('is homework?', default=False)

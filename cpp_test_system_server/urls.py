@@ -13,7 +13,8 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url, patterns
+import django
+from django.conf.urls import url
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy
 
@@ -33,6 +34,7 @@ urlpatterns = [
     url(r'^get_csrf/$', views.get_csrf_cookie),
     url(r'^check_version/$', views.check_version),
     # url(r'^download/(.+)/$', ),
+    # TODO may change to include
     url(r'^%s/$' % register_students_url, user_manage_view.students_register_view),
     url(r'^%s/$' % register_one_student_url, user_manage_view.register_one_student_view),
     url(r'^%s/$' % login_url, user_manage_view.login_view),
@@ -60,8 +62,6 @@ urlpatterns = [
 ]
 
 media_url = getattr(settings, 'MEDIA_URL', '/media/').lstrip('/')
-urlpatterns = patterns('',
-    url(r'^%s(?P<path>.*)$' % (media_url,), 'django.views.static.serve', {
-        'document_root': settings.MEDIA_ROOT
-    }),
-) + urlpatterns
+# urlpatterns.append(url(r'^%s(?P<path>.*)$' % media_url, django.views.static.serve, {
+#         'document_root': settings.MEDIA_ROOT
+#     }))

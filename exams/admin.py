@@ -2,7 +2,7 @@
 from wsgiref.util import FileWrapper
 
 from django import forms
-from django.conf.urls import patterns
+from django.conf.urls import url
 from django.contrib import admin
 from django.http import HttpResponse
 
@@ -81,10 +81,9 @@ class ExamAdmin(admin.ModelAdmin):
 
     def get_urls(self):
         urls = super(ExamAdmin, self).get_urls()
-        my_urls = patterns('',
-                           (r'^(.+)/download_scores/$', self.admin_site.admin_view(self.download_scores)),
-                           )
-        return my_urls + urls
+        my_urls = url(r'^(.+)/download_scores/$', self.admin_site.admin_view(self.download_scores))
+        urls.append(my_urls)
+        return urls
 
     def download_scores(self, request, eid):
         import pandas as pd
