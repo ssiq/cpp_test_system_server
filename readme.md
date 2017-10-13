@@ -126,7 +126,8 @@ in the test directory every test data has a *.in and *.out file, they have the s
 - install python2.7
 - install django
 ```
-conda install django
+pip install django==1.9.9
+conda install django=1.9.9
 ```
 - install mysql-python using conda
 ```
@@ -143,3 +144,6 @@ GRANT ALL PRIVILEGES ON * . * TO 'cpp_test'@'localhost';
 CREATE DATABASE cpp_test_server CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ```
 - install keyczar using pip -- the same pip binary correspond to your python2.7
+```
+pip install python-keyczar
+```
