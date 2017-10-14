@@ -12,7 +12,6 @@ Author: kvamlnk
 
 import os
 
-# TODO fail to import keyczar
 # from keyczar import keyczar
 # from keyczar import keyczart
 # from keyczar.errors import KeyczarError

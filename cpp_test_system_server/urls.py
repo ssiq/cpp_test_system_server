@@ -62,6 +62,6 @@ urlpatterns = [
 ]
 
 media_url = getattr(settings, 'MEDIA_URL', '/media/').lstrip('/')
-# urlpatterns.append(url(r'^%s(?P<path>.*)$' % media_url, django.views.static.serve, {
-#         'document_root': settings.MEDIA_ROOT
-#     }))
+urlpatterns.append(url(r'^%s(?P<path>.*)$' % media_url, 'django.views.static.serve', {
+        'document_root': settings.MEDIA_ROOT
+    }))
