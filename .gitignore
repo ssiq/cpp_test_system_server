@@ -2,3 +2,5 @@
 .idea/
 *.pyc
 uploads/
+keys/
+rsa_key/

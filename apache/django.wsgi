@@ -1,7 +1,7 @@
 import os
 import sys
 
-path = '/home/wlw/PycharmProjects/cpp_test_system_server'
+path = '/home/zt/tmp'
 if path not in sys.path:
     sys.path.insert(0, path)
 os.environ['DJANGO_SETTINGS_MODULE'] = 'cpp_test_system_server.settings'

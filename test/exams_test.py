@@ -28,7 +28,7 @@ def test_get_exam_question():
 
 
 def test_download_one_exam():
-    assert download_one_exam('1'), 'get one exam error'
+    assert download_one_exam('38'), 'get one exam error'
 
 
 def test_upload_score():

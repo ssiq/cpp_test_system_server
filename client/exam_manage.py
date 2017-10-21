@@ -1,3 +1,5 @@
+import os
+
 from client_utility import post, zip_in_momery, get_csrf_token, download_file, csrf
 from utility.constant_value import *
 from utility.encrypt import Crypter, RsaCrypter
@@ -36,8 +38,9 @@ def show_it(x):
     import io
     import zipfile
     import itertools
-    crypter = Crypter(loc='../keys')
-    input_output_rsa = RsaCrypter(loc="../rsa_key")
+    os.chdir('../')
+    crypter = Crypter(loc=key_place)
+    input_output_rsa = RsaCrypter(loc=rsa_input_key_place)
     for question in x['question']:
         print 'question:{}'.format(question)
         plain = crypter.decrypt(question)

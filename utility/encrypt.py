@@ -86,6 +86,7 @@ import json
 #
 #     def decrypt(self, s):
 #         return self.crypt.Decrypt(s)
+from utility.constant_value import rsa_input_key_place
 
 BS = 16
 pad = lambda s: s + (BS - len(s) % BS) * chr(BS - len(s) % BS)
@@ -149,7 +150,8 @@ if __name__ == '__main__':
     # print len(c), c
     # plain = crypter.decrypt( c)
     # assert plain == input, ' in<%s>\nout<%s>' % (input, plain)
-    c = RsaCrypter('../rsa_key/')
+    os.chdir('../')
+    c = RsaCrypter(loc=rsa_input_key_place)
     print("to encrypt {}".format(input))
     en = c.encrypt(input)
     print('decode it as:{}'.format(c.decrypt(en)))
