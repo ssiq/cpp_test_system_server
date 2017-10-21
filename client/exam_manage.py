@@ -40,7 +40,8 @@ def show_it(x):
     import itertools
     os.chdir('../')
     crypter = Crypter(loc=key_place)
-    input_output_rsa = RsaCrypter(loc=rsa_input_key_place)
+    input_rsa = RsaCrypter(loc=rsa_input_key_place)
+    output_rsa = RsaCrypter(loc=rsa_output_key_place)
     for question in x['question']:
         print 'question:{}'.format(question)
         plain = crypter.decrypt(question)
@@ -50,11 +51,15 @@ def show_it(x):
             for t in itertools.ifilter(lambda x: not(x.endswith("in") or x.endswith("out")),
                                        in_zip.namelist()):
                 out_zip.writestr(t, in_zip.read(t))
-            for t in itertools.ifilter(lambda x: x.endswith("in") or x.endswith("out"),
+            for t in itertools.ifilter(lambda x: x.endswith("in"),
                                        in_zip.namelist()):
-                out_zip.writestr(t, input_output_rsa.decrypt(in_zip.read(t)))
+                out_zip.writestr(t, input_rsa.decrypt(in_zip.read(t)))
+            for t in itertools.ifilter(lambda x: x.endswith("out"),
+                                       in_zip.namelist()):
+                out_zip.writestr(t, output_rsa.decrypt(in_zip.read(t)))
         with open('dest/q.zip', 'wb') as f:
             f.write(out_io_buffer.getvalue())
+
 
 
 def download_one_exam(eid):
