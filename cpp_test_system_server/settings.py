@@ -81,7 +81,7 @@ WSGI_APPLICATION = 'cpp_test_system_server.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'cpp_test_server',
+        'NAME': 'tmp_cpp_test_server',
         'USER': 'cpp_test',
         'PASSWORD': 'cpp_test',
         'HOST': '127.0.0.1',
