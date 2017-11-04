@@ -121,8 +121,8 @@ in the test directory every test data has a *.in and *.out file, they have the s
 
 # Config
 
-- Update `cpp_test_system_server/settings.py`
-- Update `utility/constant_value.py`
+- Update path in `cpp_test_system_server/settings.py`
+- Update path in `utility/constant_value.py`
 - install python2.7
 - install django
 ```
