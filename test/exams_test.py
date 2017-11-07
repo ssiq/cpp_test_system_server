@@ -19,7 +19,7 @@ def test_create_one_question():
 
 
 def test_get_one_question():
-    assert get_one_question(10, 'dest'), 'get one question error'
+    assert get_one_question(2, 'dest'), 'get one question error'
     assert get_one_question(1, 'dest') == False, 'get one question error'
 
 
@@ -66,8 +66,8 @@ if __name__ == '__main__':
     # test_get_all_exams_list()
     # test_get_active_exams_list()
     # test_create_one_question()
-    # test_get_one_question()
-    # test_get_exam_question()
+    test_get_one_question()
+    test_get_exam_question()
     test_download_one_exam()
     # test_upload_score()
     # test_upload_projects()
