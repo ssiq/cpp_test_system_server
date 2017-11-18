@@ -123,6 +123,7 @@ in the test directory every test data has a *.in and *.out file, they have the s
 
 - Update path in `cpp_test_system_server/settings.py`
 - Update path in `utility/constant_value.py`
+- For test: update url in config.py 
 - install python2.7
 - install django
 ```
