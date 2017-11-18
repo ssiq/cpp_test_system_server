@@ -123,7 +123,7 @@ in the test directory every test data has a *.in and *.out file, they have the s
 
 - Update path in `cpp_test_system_server/settings.py`
 - Update path in `utility/constant_value.py`
-- For test: update url in config.py 
+- For test: update url in `client/config.py` 
 - install python2.7
 - install django
 ```
@@ -148,4 +148,9 @@ CREATE DATABASE cpp_test_server CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 - install keyczar using pip -- the same pip binary correspond to your python2.7
 ```
 pip install python-keyczar
+```
+- migrate
+```
+python2.7 manage.py makemigrations
+python2.7 manage.py migrate
 ```
