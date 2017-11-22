@@ -1,3 +1,4 @@
+# coding=utf-8
 '''
 Basic module to provide keyczar based encryption/decryption.
 
@@ -135,10 +136,26 @@ class RsaCrypter(object):
             self.decrypt_key = PKCS1_OAEP.new(self.decrypt_key)
 
     def encrypt(self, raw):
-        return self.encrypt_key.encrypt(raw).encode('base64')
+        return self.rsa_long_encrypt(raw).encode('base64')
 
     def decrypt(self, enc):
-        return self.decrypt_key.decrypt(base64.b64decode(enc))
+        return self.rsa_long_decrypt(base64.b64decode(enc))
+
+    def rsa_long_encrypt(self, msg, length=400):
+        """
+        单次加密串的长度最大为 (key_size/8)-42
+        """
+        res = []
+        for i in range(0, len(msg), length):
+            res.append(self.encrypt_key.encrypt(msg[i:i+length]))
+        return "".join(res)
+
+
+    def rsa_long_decrypt(self, msg, length=512):
+        res = []
+        for i in range(0, len(msg), length):
+            res.append(self.decrypt_key.decrypt(msg[i:i+length]))
+        return "".join(res)
 
 
 if __name__ == '__main__':
