@@ -2,7 +2,7 @@
 from wsgiref.util import FileWrapper
 
 from django import forms
-from django.conf.urls import url
+from django.conf.urls import patterns
 from django.contrib import admin
 from django.http import HttpResponse
 
@@ -81,9 +81,10 @@ class ExamAdmin(admin.ModelAdmin):
 
     def get_urls(self):
         urls = super(ExamAdmin, self).get_urls()
-        my_urls = url(r'^(.+)/download_scores/$', self.admin_site.admin_view(self.download_scores))
-        urls.append(my_urls)
-        return urls
+        my_urls = patterns('',
+                           (r'^(.+)/download_scores/$', self.admin_site.admin_view(self.download_scores)),
+                           )
+        return my_urls + urls
 
     def download_scores(self, request, eid):
         import pandas as pd
@@ -101,7 +102,7 @@ class ExamAdmin(admin.ModelAdmin):
         # f = StringIO()
         response = HttpResponse(content_type='application/csv')
         # response['Content-Disposition'] = 'attachment;filename="%s_student_score.csv"' % exam.name
-        response['Content-Disposition'] = 'filename="%s_student_score.csv"' % exam.name
+        response['Content-Disposition'] = 'attachment; filename="{}_score.csv"'.format(exam.name.encode('utf8'))
         grade_df.to_csv(response)
         print response['Content-Disposition']
         return response
