@@ -318,6 +318,54 @@ def upload_exam_log_project_score(request):
     return JsonResponse(ok_result)
 
 
+def new_save_score(request, exam):
+    pass
+
+
+@check_version_compatible
+@check_login
+@catch_exception
+def upload_new_score(request):
+    eid = request.POST['eid']
+    exam = Exam.objects.get(id=eid)
+    _check(exam)
+    _check_random_code(exam, request)
+    new_save_score(request, exam)
+    return JsonResponse(ok_result)
+
+
+def new_save_log_project(request, exam):
+    pass
+
+
+@check_version_compatible
+@check_login
+@catch_exception
+def upload_new_log(request):
+    eid = request.POST['eid']
+    exam = Exam.objects.get(id=eid)
+    _check(exam)
+    _check_random_code(exam, request)
+    new_save_log_project(request, exam)
+    return JsonResponse(ok_result)
+
+
+def save_solution(request, exam):
+    pass
+
+
+@check_version_compatible
+@check_login
+@catch_exception
+def upload_solution(request):
+    eid = request.POST['eid']
+    exam = Exam.objects.get(id=eid)
+    _check(exam)
+    _check_random_code(exam, request)
+    save_solution(request, exam)
+    return JsonResponse(ok_result)
+
+
 @check_login
 @catch_exception
 def web_see_scores(request):
