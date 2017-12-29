@@ -362,3 +362,10 @@ def web_see_one_exam_score(request, eid):
             total_weight = total_weight + score['weight']
         total_score /= total_weight
     return render(request, 'user/one_exam_score.html', locals())
+
+
+@check_login
+@catch_exception
+def get_server_timestamp():
+    import time
+    return int(time.time())
