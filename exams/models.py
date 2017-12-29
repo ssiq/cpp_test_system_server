@@ -102,3 +102,12 @@ class ExamMac(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='user')
     exam = models.ForeignKey(Exam, on_delete=models.CASCADE, verbose_name='exam')
     mac = models.CharField(max_length=17, verbose_name='mac')
+
+
+class SolutionVersion(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='user')
+    exam = models.ForeignKey(Exam, on_delete=models.CASCADE, verbose_name='exam')
+    mac = models.CharField(max_length=17, verbose_name='mac')
+    timestamp = models.TimeField(verbose_name='timestamp')
+    score = models.FloatField(default=0, verbose_name='score')
+    location = models.TextField(max_length=512, verbose_name='location')
