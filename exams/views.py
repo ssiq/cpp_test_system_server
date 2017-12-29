@@ -19,6 +19,8 @@ import itertools
 from utility.constant_value import key_place, rsa_input_key_place, rsa_output_key_place, is_encrypt
 
 from utility.print_err import eprint
+
+
 # Create your views here.
 
 
@@ -150,7 +152,7 @@ def _check(exam):
 
 def _check_random_code(exam, request):
     if not exam.isHomework:
-        print ('MAC' in request.session, )
+        print ('MAC' in request.session,)
         mac = request.session['MAC']
         mac_list = ExamMac.objects.filter(exam=exam, user=request.user)
         if not mac_list:
@@ -206,12 +208,14 @@ def crypt_question(id, question):
             with zip_f.open(input_name, mode='r') as f:
                 intput_context = f.read()
             to_zip.writestr(input_name, rsa.encrypt(intput_context))
+
     with zipfile.ZipFile(zip_buffer, "a", zipfile.ZIP_DEFLATED, False) as to_zip:
         crypt(input_rsa, "in", to_zip)
         crypt(output_rsa, "out", to_zip)
         for name in itertools.ifilter(lambda x: not (x.endswith("in") or x.endswith("out")), zip_f.namelist()):
             to_zip.writestr(name, zip_f.read(name))
     return crypter.encrypt(zip_buffer.getvalue())
+
 
 @check_version_compatible
 @check_login
@@ -369,3 +373,10 @@ def web_see_one_exam_score(request, eid):
 def get_server_timestamp():
     import time
     return int(time.time())
+
+
+@check_login
+@catch_exception
+def get_solution_version(user_name, exam_id):
+    # TODO
+    pass
