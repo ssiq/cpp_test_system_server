@@ -375,7 +375,6 @@ def get_server_timestamp():
     return int(time.time())
 
 
-@check_login
 @catch_exception
 def get_solution_version(user_name, exam_id):
     from exams.models import SolutionVersion
