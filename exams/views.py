@@ -319,7 +319,24 @@ def upload_exam_log_project_score(request):
 
 
 def new_save_score(request, exam):
-    pass
+    import json
+    qid_list = json.loads(request.POST['qid'])
+    score_list = json.loads(request.POST['score'])
+    if not isinstance(qid_list, list):
+        question = Question.objects.get(id=qid_list)
+        score_obj = Score.objects.create(question=question, exam=exam, user=request.user, score=score_list)
+        score_obj.save()
+    else:
+        for qid, score in zip(qid_list, score_list):
+            print 'qid:{}, score:{}'.format(qid, score)
+            question = Question.objects.get(id=qid)
+            score_obj = Score.objects.create(question=question, exam=exam, user=request.user, score=score)
+            score_obj.save()
+
+    # todo save file
+    score_zip = request.FILES['score_zip']
+
+    return True
 
 
 @check_version_compatible
@@ -335,7 +352,11 @@ def upload_new_score(request):
 
 
 def new_save_log_project(request, exam):
-    pass
+    log_file = request.FILES['log']
+    # todo change to new table
+    ep = ExamProjects.objects.create(user=request.user, exam=exam)
+    ep.log = log_file
+    ep.save()
 
 
 @check_version_compatible
@@ -351,7 +372,9 @@ def upload_new_log(request):
 
 
 def save_solution(request, exam):
-    pass
+    solutin_file = request.FILES['solution']
+    # todo save to solution
+
 
 
 @check_version_compatible

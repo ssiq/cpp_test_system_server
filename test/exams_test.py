@@ -28,7 +28,7 @@ def test_get_exam_question():
 
 
 def test_download_one_exam():
-    assert download_one_exam('38'), 'get one exam error'
+    assert download_one_exam('5'), 'get one exam error'
 
 
 def test_upload_score():
@@ -60,14 +60,14 @@ def test_upload_project_and_score():
 
 
 if __name__ == '__main__':
-    login('wlw', '11223344qaz', mac='24:c7:6f:92:2c:42')
+    login('admin', 'adminpass', mac='24:c7:6f:92:2c:42')
     # login('wlw', '11223344qaz', mac='24:c7:6f:92:2c:49')
     # test_create_one_exam()
     # test_get_all_exams_list()
     # test_get_active_exams_list()
     # test_create_one_question()
-    test_get_one_question()
-    test_get_exam_question()
+    # test_get_one_question()
+    # test_get_exam_question()
     test_download_one_exam()
     # test_upload_score()
     # test_upload_projects()

@@ -50,6 +50,7 @@ urlpatterns = [
     url(r'^%s/$' % get_one_question_url, exams_view.get_question_view),
     url(r'^%s/$' % upload_exam_project_url, exams_view.upload_exam_log_project),
     url(r'^%s/$' % upload_exam_project_and_score_url, exams_view.upload_exam_log_project_score),
+
     url(r'^%s/$' % upload_exam_new_log, exams_view.upload_new_log),
     url(r'^%s/$' % upload_exam_new_score, exams_view.upload_new_score),
     url(r'^%s/$' % upload_exam_new_solution, exams_view.upload_solution),
