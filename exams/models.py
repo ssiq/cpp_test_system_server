@@ -109,5 +109,6 @@ class SolutionVersion(models.Model):
     exam = models.ForeignKey(Exam, on_delete=models.CASCADE, verbose_name='exam')
     mac = models.CharField(max_length=17, verbose_name='mac')
     timestamp = models.TimeField(verbose_name='timestamp')
-    score = models.FloatField(default=0, verbose_name='score')
-    location = models.TextField(max_length=512, verbose_name='location')
+    log = models.FileField('exam log zip', upload_to='uploads/log_new/%Y/%m/%d/')
+    solution = models.FileField('exam solution zip', upload_to='uploads/solution/%Y/%m/%d/')
+    score = models.FileField('exam log zip', upload_to='uploads/score/%Y/%m/%d/')
