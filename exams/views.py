@@ -382,6 +382,6 @@ def get_solution_version(user_name, exam_id):
     user_id = User.objects.filter(username=user_name).id
     result = SolutionVersion.objects.filter(user=user_id, exam=exam_id).order_by("-timestamp")
     if result.exists():
-        return result[0]
+        return result[0].mac + "_" + result[0].timestamp
     else:
         return None
