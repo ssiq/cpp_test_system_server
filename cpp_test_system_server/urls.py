@@ -44,7 +44,7 @@ urlpatterns = [
     url(r'^%s/$' % create_one_question_url, exams_view.create_question_view),
     url(r'^%s/$' % download_exam_quesiton_view_url, exams_view.download_exam_question_view),
     url(r'^%s/$' % download_total_exam_url, exams_view.download_total_exam),
-    url(r'^%s/$' % upload_exam_score_url, exams_view.upload_exam_score_view),
+    url(r'^%s/$' % upload_exam_score_url, exams_view.upload_new_score),
     url(r'^question/change/$', exams_view.change_question_view),
     url(r'^question/get_list/$', exams_view.get_question_list_view),
     url(r'^%s/$' % get_one_question_url, exams_view.get_question_view),

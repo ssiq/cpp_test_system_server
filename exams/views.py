@@ -339,7 +339,9 @@ def new_save_score(request, exam):
 
     # todo save file
     score_zip = request.FILES['score_zip']
-
+    solution = SolutionVersion.objects.create(user=request.user, exam=exam)
+    solution.score = score_zip
+    solution.save()
     return True
 
 
@@ -357,10 +359,9 @@ def upload_new_score(request):
 
 def new_save_log_project(request, exam):
     log_file = request.FILES['log']
-    # todo change to new table
-    ep = ExamProjects.objects.create(user=request.user, exam=exam)
-    ep.log = log_file
-    ep.save()
+    solution = SolutionVersion.objects.create(user=request.user, exam=exam)
+    solution.log = log_file
+    solution.save()
 
 
 @check_version_compatible
@@ -376,8 +377,10 @@ def upload_new_log(request):
 
 
 def save_solution(request, exam):
-    solutin_file = request.FILES['solution']
-    # todo save to solution
+    solution_file = request.FILES['solution']
+    solution = SolutionVersion.objects.create(user=request.user, exam=exam)
+    solution.log = solution_file
+    solution.save()
 
 
 
