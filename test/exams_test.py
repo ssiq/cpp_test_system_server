@@ -28,11 +28,25 @@ def test_get_exam_question():
 
 
 def test_download_one_exam():
-    assert download_one_exam('1'), 'get one exam error'
+    assert download_one_exam('5'), 'get one exam error'
 
 
 def test_upload_score():
     assert upload_score('1', ["10"], ["100"]), 'upload score error'
+
+
+def test_upload_new_score():
+    with open('dest/q.zip', 'rb') as f:
+        score = f.read()
+        assert upload_new_score('4', ["2"], ["100"], score), 'upload score error'
+
+
+def test_upload_new_log():
+    with open('dest/q.zip', 'rb') as f:
+        log = f.read()
+        solution = log
+        assert upload_new_file(upload_exam_new_log, '4', {'log_zip': log}), 'upload log error'
+        assert upload_new_file(upload_exam_new_solution, '4', {'solution_zip': solution}), 'upload log error'
 
 
 def test_upload_projects():
@@ -59,12 +73,8 @@ def test_upload_project_and_score():
                                         has_browser=1, browser=log), 'upload score and log error'
 
 
-def test_download_one_solution():
-    assert download_one_solution('1', '1'), 'download solution errors'
-
-
 if __name__ == '__main__':
-    login('admin', '123456qw', mac='24:c7:6f:92:2c:42')
+    login('admin', 'adminpass', mac='24:c7:6f:92:2c:42')
     # login('wlw', '11223344qaz', mac='24:c7:6f:92:2c:49')
     # test_create_one_exam()
     # test_get_all_exams_list()
@@ -76,4 +86,5 @@ if __name__ == '__main__':
     # test_upload_score()
     # test_upload_projects()
     # test_upload_project_and_score()
-    test_download_one_solution()
+    # test_upload_new_score()
+    test_upload_new_log()
