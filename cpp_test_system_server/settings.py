@@ -136,5 +136,5 @@ STATIC_ROOT = 'static'
 
 MEDIA_URL = '/media/'
 
-MEDIA_ROOT = '/home/zt/tmp'
-# MEDIA_ROOT = './'
+# MEDIA_ROOT = '/home/zt/tmp'
+MEDIA_ROOT = './'
