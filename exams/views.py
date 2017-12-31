@@ -474,20 +474,11 @@ def download_solution(request):
         if content is None or len(content) != 1:
             s = 'homework' if exam.isHomework else 'exam'
             raise Exception('the solution record cannot find in this %s' % s)
-
-        log = content[0].log
-        score = content[0].score
         solution = content[0].solution
-
-        log.open('rb')
-        score.open('rb')
         solution.open('rb')
+        solution_file = solution.read()
 
-        log_file = log.read()
-        score_file = score.read()
-        solution_file = score.read()
-
-        res = {'log': log_file, 'score': score_file, 'solution': solution_file}
+        res = {'solution': solution_file}
         res.update(ok_result)
         return JsonResponse(res)
 
