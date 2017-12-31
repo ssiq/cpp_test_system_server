@@ -167,7 +167,7 @@ if __name__ == '__main__':
     # print len(c), c
     # plain = crypter.decrypt( c)
     # assert plain == input, ' in<%s>\nout<%s>' % (input, plain)
-    os.chdir('../')
+    # os.chdir('../')
     c = RsaCrypter(loc=rsa_input_key_place)
     print("to encrypt {}".format(input))
     en = c.encrypt(input)

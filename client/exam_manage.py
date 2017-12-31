@@ -38,7 +38,7 @@ def show_it(x):
     import io
     import zipfile
     import itertools
-    os.chdir('../')
+    # os.chdir('../')
     crypter = Crypter(loc=key_place)
     input_rsa = RsaCrypter(loc=rsa_input_key_place)
     output_rsa = RsaCrypter(loc=rsa_output_key_place)
@@ -68,6 +68,14 @@ def download_one_exam(eid):
 
 def upload_score(eid, qlist, score_list):
     return post(upload_exam_score_url, {'eid':eid, 'qid': qlist, 'score': score_list}, [], show_it)
+
+
+def upload_new_score(eid, qlist, score_list, score):
+    return post(upload_exam_score_url, {'eid':eid, 'qid': qlist, 'score': score_list}, {'score_zip': score})
+
+
+def upload_new_file(url, eid, file):
+    return post(url, {'eid': eid}, file)
 
 
 def upload_project(eid, log, prpject, has_monitor=0, has_browser=0, monitor='empty', browser='empty'):
@@ -179,7 +187,7 @@ def get_exam_quesiton(exam_id, question_id, dest_path):
 
     def action(x):
         from utility.encrypt import Crypter
-        crypter = Crypter('../keys')
+        crypter = Crypter('./keys')
         name = x['name']
         question = x['question']
         print question

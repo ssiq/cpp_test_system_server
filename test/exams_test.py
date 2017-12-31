@@ -35,6 +35,20 @@ def test_upload_score():
     assert upload_score('1', ["10"], ["100"]), 'upload score error'
 
 
+def test_upload_new_score():
+    with open('dest/q.zip', 'rb') as f:
+        score = f.read()
+        assert upload_new_score('4', ["2"], ["100"], score), 'upload score error'
+
+
+def test_upload_new_log():
+    with open('dest/q.zip', 'rb') as f:
+        log = f.read()
+        solution = log
+        assert upload_new_file(upload_exam_new_log, '4', {'log_zip': log}), 'upload log error'
+        assert upload_new_file(upload_exam_new_solution, '4', {'solution_zip': solution}), 'upload log error'
+
+
 def test_upload_projects():
     with open('dest/q.zip', 'rb') as f:
         log = f.read()
@@ -68,7 +82,9 @@ if __name__ == '__main__':
     # test_create_one_question()
     # test_get_one_question()
     # test_get_exam_question()
-    test_download_one_exam()
+    # test_download_one_exam()
     # test_upload_score()
     # test_upload_projects()
     # test_upload_project_and_score()
+    # test_upload_new_score()
+    test_upload_new_log()

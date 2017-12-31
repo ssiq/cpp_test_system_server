@@ -337,7 +337,6 @@ def new_save_score(request, exam):
             score_obj = Score.objects.create(question=question, exam=exam, user=request.user, score=score)
             score_obj.save()
 
-    # todo save file
     score_zip = request.FILES['score_zip']
     solution = SolutionVersion.objects.create(user=request.user, exam=exam)
     solution.score = score_zip
@@ -358,7 +357,7 @@ def upload_new_score(request):
 
 
 def new_save_log_project(request, exam):
-    log_file = request.FILES['log']
+    log_file = request.FILES['log_zip']
     solution = SolutionVersion.objects.create(user=request.user, exam=exam)
     solution.log = log_file
     solution.save()
@@ -377,9 +376,9 @@ def upload_new_log(request):
 
 
 def save_solution(request, exam):
-    solution_file = request.FILES['solution']
+    solution_file = request.FILES['solution_zip']
     solution = SolutionVersion.objects.create(user=request.user, exam=exam)
-    solution.log = solution_file
+    solution.solution = solution_file
     solution.save()
 
 
