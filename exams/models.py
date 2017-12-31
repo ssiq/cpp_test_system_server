@@ -109,6 +109,18 @@ class SolutionVersion(models.Model):
     exam = models.ForeignKey(Exam, on_delete=models.CASCADE, verbose_name='exam')
     mac = models.CharField(max_length=17, verbose_name='mac')
     timestamp = models.DateTimeField(verbose_name='timestamp', default=timezone.now())
-    log = models.FileField('exam log zip', upload_to='uploads/log_new/%Y/%m/%d/')
     solution = models.FileField('exam solution zip', upload_to='uploads/solution/%Y/%m/%d/')
-    score = models.FileField('exam log zip', upload_to='uploads/score/%Y/%m/%d/')
+
+
+class NewLog(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='user')
+    exam = models.ForeignKey(Exam, on_delete=models.CASCADE, verbose_name='exam')
+    timestamp = models.DateTimeField(verbose_name='timestamp', default=timezone.now())
+    log = models.FileField('exam log zip', upload_to='uploads/log_new/%Y/%m/%d/')
+
+
+class NewScore(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='user')
+    exam = models.ForeignKey(Exam, on_delete=models.CASCADE, verbose_name='exam')
+    timestamp = models.DateTimeField(verbose_name='timestamp', default=timezone.now())
+    score = models.FileField('exam score zip', upload_to='uploads/score/%Y/%m/%d/')

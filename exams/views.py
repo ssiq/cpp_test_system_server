@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import json
 from wsgiref.util import FileWrapper
 
 import io
@@ -338,7 +339,7 @@ def new_save_score(request, exam):
             score_obj.save()
 
     score_zip = request.FILES['score_zip']
-    solution = SolutionVersion.objects.create(user=request.user, exam=exam)
+    solution = NewScore.objects.create(user=request.user, exam=exam)
     solution.score = score_zip
     solution.save()
     return True
@@ -358,7 +359,7 @@ def upload_new_score(request):
 
 def new_save_log_project(request, exam):
     log_file = request.FILES['log_zip']
-    solution = SolutionVersion.objects.create(user=request.user, exam=exam)
+    solution = NewLog.objects.create(user=request.user, exam=exam)
     solution.log = log_file
     solution.save()
 
@@ -480,7 +481,8 @@ def download_solution(request):
 
         res = {'solution': solution_file}
         res.update(ok_result)
-        return JsonResponse(res)
+        return HttpResponse(json.dumps(res, ensure_ascii=False), content_type="application/json")
+
 
     else:
         s = 'homework' if exam.isHomework else 'exam'
