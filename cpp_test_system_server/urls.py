@@ -51,9 +51,11 @@ urlpatterns = [
     url(r'^%s/$' % upload_exam_project_url, exams_view.upload_exam_log_project),
     url(r'^%s/$' % upload_exam_project_and_score_url, exams_view.upload_exam_log_project_score),
 
-    url(r'^%s/$' % upload_exam_new_log, exams_view.upload_new_log),
-    url(r'^%s/$' % upload_exam_new_score, exams_view.upload_new_score),
-    url(r'^%s/$' % upload_exam_new_solution, exams_view.upload_solution),
+    url(r'^%s/$' % download_solution_url, exams_view.download_solution),
+
+    url(r'^%s/$' % upload_exam_new_log_url, exams_view.upload_new_log),
+    url(r'^%s/$' % upload_exam_new_score_url, exams_view.upload_new_score),
+    url(r'^%s/$' % upload_exam_new_solution_url, exams_view.upload_solution),
 
     url(r'^$', user_manage_view.web_login_view),
     url(r'^web/$', user_manage_view.web_home_view),

@@ -382,7 +382,6 @@ def save_solution(request, exam):
     solution.save()
 
 
-
 @check_version_compatible
 @check_login
 @catch_exception
@@ -454,6 +453,43 @@ def get_solution_version(user_name, exam_id):
     user_id = User.objects.filter(username=user_name).id
     result = SolutionVersion.objects.filter(user=user_id, exam=exam_id).order_by("-timestamp")
     if result.exists():
-        return result[0].mac + "_" + result[0].timestamp
+        return result[0].mac, result[0].timestamp
     else:
         return None
+
+
+@check_version_compatible
+@check_login
+@catch_exception
+def download_solution(request):
+    eid = request.POST['eid']
+    uid = request.POST['uid']
+    exam = Exam.objects.get(id=eid)
+    # _check(exam)
+    # _check_random_code(exam, request)
+    if get_solution_version(uid, eid) is not None:
+        mac, timestamp = get_solution_version(uid, eid)
+        content = SolutionVersion.objects.filter(user_id=uid, exam_id=eid, mac=mac, timestamp=timestamp)
+        if content is None or len(content) != 1:
+            s = 'homework' if exam.isHomework else 'exam'
+            raise Exception('the solution record cannot find in this %s' % s)
+
+        log = content.log
+        score = content.score
+        solution = content.solution
+
+        log.open('rb')
+        score.open('rb')
+        solution.open('rb')
+
+        log_file = log.read()
+        score_file = score.read()
+        solution_file = score.read()
+
+        res = {'log': log_file, 'score': score_file, 'solution': solution_file}
+        res.update(ok_result)
+        return JsonResponse(res)
+
+    else:
+        s = 'homework' if exam.isHomework else 'exam'
+        raise Exception('the solution record cannot find in this %s' % s)

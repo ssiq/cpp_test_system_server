@@ -11,7 +11,7 @@ def create_one_exam(name, begin_time, end_time):
                     'name': name,
                     'begin_time': begin_time,
                     'end_time': end_time,
-                 },
+                },
                 [])
 
 
@@ -47,8 +47,8 @@ def show_it(x):
         plain = crypter.decrypt(question)
         out_io_buffer = io.BytesIO()
         with zipfile.ZipFile(out_io_buffer, "a", zipfile.ZIP_DEFLATED, False) as out_zip, \
-             zipfile.ZipFile(io.BytesIO(plain)) as in_zip:
-            for t in itertools.ifilter(lambda x: not(x.endswith("in") or x.endswith("out")),
+                zipfile.ZipFile(io.BytesIO(plain)) as in_zip:
+            for t in itertools.ifilter(lambda x: not (x.endswith("in") or x.endswith("out")),
                                        in_zip.namelist()):
                 out_zip.writestr(t, in_zip.read(t))
             for t in itertools.ifilter(lambda x: x.endswith("in"),
@@ -61,17 +61,20 @@ def show_it(x):
             f.write(out_io_buffer.getvalue())
 
 
+def download_one_solution(eid, uid):
+    return post(download_solution_url, {'eid': eid, 'uid': uid}, [])
+
 
 def download_one_exam(eid):
     return post(download_total_exam_url, {'eid': eid}, [], show_it)
 
 
 def upload_score(eid, qlist, score_list):
-    return post(upload_exam_score_url, {'eid':eid, 'qid': qlist, 'score': score_list}, [], show_it)
+    return post(upload_exam_score_url, {'eid': eid, 'qid': qlist, 'score': score_list}, [], show_it)
 
 
 def upload_new_score(eid, qlist, score_list, score):
-    return post(upload_exam_score_url, {'eid':eid, 'qid': qlist, 'score': score_list}, {'score_zip': score})
+    return post(upload_exam_score_url, {'eid': eid, 'qid': qlist, 'score': score_list}, {'score_zip': score})
 
 
 def upload_new_file(url, eid, file):
@@ -79,7 +82,7 @@ def upload_new_file(url, eid, file):
 
 
 def upload_project(eid, log, prpject, has_monitor=0, has_browser=0, monitor='empty', browser='empty'):
-    file_field = {'log':log, 'project':prpject}
+    file_field = {'log': log, 'project': prpject}
     if has_monitor:
         file_field['monitor'] = monitor
     if has_browser:
@@ -95,7 +98,7 @@ def upload_project_and_score(eid, qlist, score_list, log, prpject,
         file_field['monitor'] = monitor
     if has_browser:
         file_field['chrome'] = browser
-    return post(upload_exam_project_and_score_url, {'eid':eid, 'qid': qlist, 'score': score_list,
+    return post(upload_exam_project_and_score_url, {'eid': eid, 'qid': qlist, 'score': score_list,
                                                     'hasMonitor': has_monitor, 'hasChrome': has_browser},
                 file_field, show_it)
 
@@ -105,9 +108,9 @@ def create_one_question(path):
     import scandir
     import re
     d = {}
-    name_path = path+'/name'
-    desc_path = path+'/description'
-    test_path = path+'/test_cases'
+    name_path = path + '/name'
+    desc_path = path + '/description'
+    test_path = path + '/test_cases'
     if not os.path.isdir(path):
         print 'path %s id not a path' % path
         return False
@@ -175,16 +178,16 @@ def get_one_question(question_id, dest_path):
         import re
         pattern = re.compile(r'.+=(.+)\.zip')
         m = pattern.match(r.headers.get('Content-Disposition'))
-        with open(dest_path+'/'+m.group(1)+'.zip', 'wb') as fd:
+        with open(dest_path + '/' + m.group(1) + '.zip', 'wb') as fd:
             for chunk in r.iter_content(chunk_size):
                 fd.write(chunk)
+
     return post(get_one_question_url,
                 data_dict={'id': question_id},
                 handle_response=put_file)
 
 
 def get_exam_quesiton(exam_id, question_id, dest_path):
-
     def action(x):
         from utility.encrypt import Crypter
         crypter = Crypter('./keys')
@@ -192,7 +195,7 @@ def get_exam_quesiton(exam_id, question_id, dest_path):
         question = x['question']
         print question
         question = crypter.decrypt(question)
-        with open(dest_path + '/' + name +'.zip', 'wb') as f:
+        with open(dest_path + '/' + name + '.zip', 'wb') as f:
             f.write(question)
 
     return post(download_exam_quesiton_view_url,

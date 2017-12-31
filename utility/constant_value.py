@@ -31,9 +31,11 @@ upload_exam_score_url = 'exam/upload_score'
 upload_exam_project_url = 'exam/upload_exam_log_project'
 upload_exam_project_and_score_url = 'exam/upload_exam_project_and_score'
 
-upload_exam_new_log = 'exam/new/upload/log'
-upload_exam_new_score = 'exam/new/upload/score'
-upload_exam_new_solution = 'exam/new/upload/solution'
+download_solution_url = 'exam/download_solution'
+
+upload_exam_new_log_url = 'exam/new/upload/log'
+upload_exam_new_score_url = 'exam/new/upload/score'
+upload_exam_new_solution_url = 'exam/new/upload/solution'
 
 
 compatible_version = ['1.0.9']
