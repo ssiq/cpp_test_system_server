@@ -60,7 +60,7 @@ def test_upload_project_and_score():
 
 
 def test_download_one_solution():
-    assert download_one_solution('1', '1')
+    assert download_one_solution('1', '1'), 'download solution errors'
 
 
 if __name__ == '__main__':
