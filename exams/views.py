@@ -449,12 +449,13 @@ def get_server_timestamp():
 
 
 @catch_exception
-def get_solution_version(user_name, exam_id):
+def get_solution_version(request):
     from exams.models import SolutionVersion
-    user_id = User.objects.get(username=user_name).id
+    user_id = request.POST['uid']
+    exam_id = request.POST['eid']
     result = SolutionVersion.objects.filter(user=user_id, exam=exam_id).order_by("-timestamp")
     if result.exists():
-        return result[0].mac, result[0].timestamp
+        return str(result[0].mac) + "_" + str(result[0].timestamp)
     else:
         return None
 
