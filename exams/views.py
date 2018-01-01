@@ -467,11 +467,17 @@ def download_solution(request):
     eid = request.POST['eid']
     uid = request.POST['uid']
     exam = Exam.objects.get(id=eid)
-    username = User.objects.get(id=uid).username
     # _check(exam)
     # _check_random_code(exam, request)
-    if get_solution_version(username, eid) is not None:
-        mac, timestamp = get_solution_version(username, eid)
+    mac = None
+    timestamp = None
+    result = SolutionVersion.objects.filter(user=uid, exam=eid).order_by("-timestamp")
+    if result.exists():
+        mac = result[0].mac
+        timestamp = result[0].timestamp
+
+    if mac is not None and timestamp is not None:
+        # mac, timestamp = get_solution_version(username, eid)
         content = SolutionVersion.objects.filter(user_id=uid, exam_id=eid, mac=mac, timestamp=timestamp)
         if content is None or len(content) != 1:
             s = 'homework' if exam.isHomework else 'exam'
@@ -483,8 +489,6 @@ def download_solution(request):
         res = {'solution': solution_file}
         res.update(ok_result)
         return HttpResponse(json.dumps(res, ensure_ascii=False), content_type="application/json")
-
-
     else:
         s = 'homework' if exam.isHomework else 'exam'
         raise Exception('the solution record cannot find in this %s' % s)
