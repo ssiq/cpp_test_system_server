@@ -51,6 +51,9 @@ urlpatterns = [
     url(r'^%s/$' % upload_exam_project_url, exams_view.upload_exam_log_project),
     url(r'^%s/$' % upload_exam_project_and_score_url, exams_view.upload_exam_log_project_score),
 
+    url(r'^%s/$' % get_server_timestamp_url, exams_view.get_server_timestamp),
+    url(r'^%s/$' % get_solution_version_url, exams_view.get_solution_version),
+
     url(r'^%s/$' % download_solution_url, exams_view.download_solution),
 
     url(r'^%s/$' % upload_exam_new_log_url, exams_view.upload_new_log),

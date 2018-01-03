@@ -31,6 +31,9 @@ upload_exam_score_url = 'exam/upload_score'
 upload_exam_project_url = 'exam/upload_exam_log_project'
 upload_exam_project_and_score_url = 'exam/upload_exam_project_and_score'
 
+get_server_timestamp_url = 'exam/get_server_timestamp'
+get_solution_version_url = 'exam/get_solution_version'
+
 download_solution_url = 'exam/download_solution'
 
 upload_exam_new_log_url = 'exam/new/upload/log'
