@@ -445,7 +445,7 @@ def web_see_one_exam_score(request, eid):
 @catch_exception
 def get_server_timestamp():
     import time
-    return JsonResponse(int(time.time()))
+    return JsonResponse({'timestamp': int(time.time())})
 
 
 @catch_exception
@@ -455,7 +455,7 @@ def get_solution_version(request):
     exam_id = request.POST['eid']
     result = SolutionVersion.objects.filter(user=user_id, exam=exam_id).order_by("-timestamp")
     if result.exists():
-        return JsonResponse(str(result[0].mac) + "_" + str(result[0].timestamp))
+        return JsonResponse({'solution_version': str(result[0].mac) + "_" + str(result[0].timestamp)})
     else:
         return None
 
