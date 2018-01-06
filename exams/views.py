@@ -443,7 +443,7 @@ def web_see_one_exam_score(request, eid):
 
 @check_login
 @catch_exception
-def get_server_timestamp():
+def get_server_timestamp(request):
     import time
     return JsonResponse({'timestamp': int(time.time())})
 
