@@ -454,11 +454,15 @@ def get_solution_version(request):
     from exams.models import SolutionVersion
     # user_id = request.POST['uid']
     exam_id = request.POST['eid']
+    exam = Exam.objects.get(id=exam_id)
     result = SolutionVersion.objects.filter(user=request.user, exam=exam_id).order_by("-timestamp")
     if result.exists():
-        return JsonResponse({'solution_version': str(result[0].mac)})
+        res = {'solution_version': str(result[0].mac)}
+        res.update(ok_result)
+        return JsonResponse(res)
     else:
-        return JsonResponse({'result': 'no solution'})
+        s = 'homework' if exam.isHomework else 'exam'
+        raise Exception('the solution record cannot find in this %s' % s)
 
 
 @check_version_compatible
@@ -470,24 +474,13 @@ def download_solution(request):
     exam = Exam.objects.get(id=eid)
     # _check(exam)
     # _check_random_code(exam, request)
-    mac = None
-    timestamp = None
     result = SolutionVersion.objects.filter(user=request.user, exam=eid).order_by("-timestamp")
     if result.exists():
-        mac = result[0].mac
-        timestamp = result[0].timestamp
-
-    if mac is not None and timestamp is not None:
-        # mac, timestamp = get_solution_version(username, eid)
-        content = SolutionVersion.objects.filter(user_id=request.user, exam_id=eid, mac=mac, timestamp=timestamp)
-        if content is None or len(content) != 1:
-            s = 'homework' if exam.isHomework else 'exam'
-            raise Exception('the solution record cannot find in this %s' % s)
-        solution = content[0].solution
+        solution = result[0].solution
         solution.open('rb')
         solution_file = solution.read()
 
-        res = {'solution': solution_file}
+        res = {'solution': solution_file, 'path': str(result[0].solution)}
         res.update(ok_result)
         return HttpResponse(json.dumps(res, ensure_ascii=False), content_type="application/json")
     else:
