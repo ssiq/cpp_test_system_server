@@ -456,7 +456,7 @@ def get_solution_version(request):
     exam_id = request.POST['eid']
     result = SolutionVersion.objects.filter(user=request.user, exam=exam_id).order_by("-timestamp")
     if result.exists():
-        return JsonResponse({'solution_version': str(result[0].mac) + "_" + str(result[0].timestamp)})
+        return JsonResponse({'solution_version': str(result[0].mac)})
     else:
         return JsonResponse({'result': 'no solution'})
 
