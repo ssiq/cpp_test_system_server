@@ -451,9 +451,9 @@ def get_server_timestamp(request):
 @catch_exception
 def get_solution_version(request):
     from exams.models import SolutionVersion
-    user_id = request.POST['uid']
+    # user_id = request.POST['uid']
     exam_id = request.POST['eid']
-    result = SolutionVersion.objects.filter(user=user_id, exam=exam_id).order_by("-timestamp")
+    result = SolutionVersion.objects.filter(user=request.user, exam=exam_id).order_by("-timestamp")
     if result.exists():
         return JsonResponse({'solution_version': str(result[0].mac) + "_" + str(result[0].timestamp)})
     else:
@@ -465,20 +465,20 @@ def get_solution_version(request):
 @catch_exception
 def download_solution(request):
     eid = request.POST['eid']
-    uid = request.POST['uid']
+    # uid = request.POST['uid']
     exam = Exam.objects.get(id=eid)
     # _check(exam)
     # _check_random_code(exam, request)
     mac = None
     timestamp = None
-    result = SolutionVersion.objects.filter(user=uid, exam=eid).order_by("-timestamp")
+    result = SolutionVersion.objects.filter(user=request.user, exam=eid).order_by("-timestamp")
     if result.exists():
         mac = result[0].mac
         timestamp = result[0].timestamp
 
     if mac is not None and timestamp is not None:
         # mac, timestamp = get_solution_version(username, eid)
-        content = SolutionVersion.objects.filter(user_id=uid, exam_id=eid, mac=mac, timestamp=timestamp)
+        content = SolutionVersion.objects.filter(user_id=request.user, exam_id=eid, mac=mac, timestamp=timestamp)
         if content is None or len(content) != 1:
             s = 'homework' if exam.isHomework else 'exam'
             raise Exception('the solution record cannot find in this %s' % s)
