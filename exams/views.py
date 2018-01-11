@@ -380,6 +380,7 @@ def save_solution(request, exam):
     solution_file = request.FILES['solution_zip']
     solution = SolutionVersion.objects.create(user=request.user, exam=exam)
     solution.solution = solution_file
+    solution.mac = request.POST['version']
     solution.save()
 
 
