@@ -61,8 +61,15 @@ def show_it(x):
             f.write(out_io_buffer.getvalue())
 
 
-def download_one_solution(eid, uid):
-    return post(download_solution_url, {'eid': eid, 'uid': uid}, [])
+def show_download_solution(x):
+    # import io
+    print 'solution_path:{}'.format(x['path'])
+    with open('test.zip', 'wb+') as f:
+        f.write(x['solution'])
+
+
+def download_one_solution(eid):
+    return post(download_solution_url, {'eid': eid}, [], show_download_solution)
 
 
 def download_one_exam(eid):
