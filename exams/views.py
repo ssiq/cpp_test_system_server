@@ -457,7 +457,7 @@ def get_solution_version(request):
     if result.exists():
         return JsonResponse({'solution_version': str(result[0].mac) + "_" + str(result[0].timestamp)})
     else:
-        return None
+        return JsonResponse({'result': 'no solution'})
 
 
 @check_version_compatible
