@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import base64
 import json
 from wsgiref.util import FileWrapper
 
@@ -478,11 +479,11 @@ def download_solution(request):
     if result.exists():
         solution = result[0].solution
         solution.open('rb')
-        solution_file = solution.read()
+        solution_file = base64.b64encode(solution.read())
 
         res = {'solution': solution_file, 'path': str(result[0].solution)}
         res.update(ok_result)
-        return HttpResponse(json.dumps(res, ensure_ascii=False), content_type="application/json")
+        return JsonResponse(res)
     else:
         s = 'homework' if exam.isHomework else 'exam'
         raise Exception('the solution record cannot find in this %s' % s)

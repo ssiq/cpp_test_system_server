@@ -1,3 +1,4 @@
+import base64
 import os
 
 from client_utility import post, zip_in_momery, get_csrf_token, download_file, csrf
@@ -65,7 +66,7 @@ def show_download_solution(x):
     # import io
     print 'solution_path:{}'.format(x['path'])
     with open('test.zip', 'wb+') as f:
-        f.write(x['solution'])
+        f.write(base64.b64decode(x['solution']))
 
 
 def download_one_solution(eid):
