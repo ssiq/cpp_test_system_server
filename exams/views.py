@@ -381,7 +381,7 @@ def save_solution(request, exam):
     solution_file = request.FILES['solution_zip']
     solution = SolutionVersion.objects.create(user=request.user, exam=exam)
     solution.solution = solution_file
-    solution.mac = request.POST['version']
+    solution.version = request.POST['version']
     solution.save()
 
 
@@ -458,7 +458,7 @@ def get_solution_version(request):
     exam = Exam.objects.get(id=exam_id)
     result = SolutionVersion.objects.filter(user=request.user, exam=exam_id).order_by("-timestamp")
     if result.exists():
-        res = {'solution_version': str(result[0].mac)}
+        res = {'solution_version': str(result[0].version)}
         res.update(ok_result)
         return JsonResponse(res)
     else:

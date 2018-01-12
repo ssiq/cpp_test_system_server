@@ -107,7 +107,7 @@ class ExamMac(models.Model):
 class SolutionVersion(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='user')
     exam = models.ForeignKey(Exam, on_delete=models.CASCADE, verbose_name='exam')
-    mac = models.CharField(max_length=17, verbose_name='mac')
+    version = models.CharField(max_length=200, verbose_name='version')
     timestamp = models.DateTimeField(verbose_name='timestamp', default=timezone.now())
     solution = models.FileField('exam solution zip', upload_to='uploads/solution/%Y/%m/%d/')
 
