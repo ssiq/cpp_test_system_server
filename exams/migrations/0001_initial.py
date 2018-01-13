@@ -108,19 +108,6 @@ class Migration(migrations.Migration):
                 ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name='user')),
             ],
         ),
-        migrations.CreateModel(
-            name='SolutionVersion',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('mac', models.CharField(max_length=17, verbose_name='mac')),
-                ('timestamp', models.DateTimeField(default=datetime.datetime(2017, 12, 31, 12, 23, 6, 969946, tzinfo=utc), verbose_name='timestamp')),
-                ('log', models.FileField(upload_to='uploads/log_new/%Y/%m/%d/', verbose_name='exam log zip')),
-                ('solution', models.FileField(upload_to='uploads/solution/%Y/%m/%d/', verbose_name='exam solution zip')),
-                ('score', models.FileField(upload_to='uploads/score/%Y/%m/%d/', verbose_name='exam log zip')),
-                ('exam', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='exams.Exam', verbose_name='exam')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name='user')),
-            ],
-        ),
         migrations.AddField(
             model_name='examquestion',
             name='question',

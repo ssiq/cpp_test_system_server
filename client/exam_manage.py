@@ -86,7 +86,7 @@ def upload_new_score(eid, qlist, score_list, score):
 
 
 def upload_new_file(url, eid, file):
-    return post(url, {'eid': eid}, file)
+    return post(url, {'eid': eid, 'version':'asdf_2018-01'}, file)
 
 
 def upload_project(eid, log, prpject, has_monitor=0, has_browser=0, monitor='empty', browser='empty'):

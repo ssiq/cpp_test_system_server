@@ -34,7 +34,7 @@ class Question(models.Model):
     name = models.CharField('question name', unique=True, max_length=200)
     description = models.TextField('question description')
     content = models.FileField('question content', upload_to='uploads/%Y/%m/%d/')
-    create_time = models.DateTimeField('create time', default=timezone.now())
+    create_time = models.DateTimeField('create time', default=timezone.now)
 
     def question_link(self):
         return '<a href="%s">%s</a>' % (reverse("admin:auth_user_change", args=(self.user.id,)), escape(self.user))
@@ -84,7 +84,7 @@ class ExamProjects(models.Model):
                                default='uploads/default_browser.txt')
     has_monitor = models.BooleanField('has monitor file', default=False)
     has_browser = models.BooleanField('has browser file', default=False)
-    create_time = models.DateTimeField('create time', default=timezone.now())
+    create_time = models.DateTimeField('create time', default=timezone.now)
 
     def save(self, *args, **kwargs):
         ''' On save, update timestamps '''
@@ -107,20 +107,20 @@ class ExamMac(models.Model):
 class SolutionVersion(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='user')
     exam = models.ForeignKey(Exam, on_delete=models.CASCADE, verbose_name='exam')
-    version = models.CharField(max_length=200, verbose_name='version')
-    timestamp = models.DateTimeField(verbose_name='timestamp', default=timezone.now())
+    version = models.CharField(max_length=200, verbose_name='version', default='')
+    timestamp = models.DateTimeField(verbose_name='timestamp', default=timezone.now)
     solution = models.FileField('exam solution zip', upload_to='uploads/solution/%Y/%m/%d/')
 
 
 class NewLog(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='user')
     exam = models.ForeignKey(Exam, on_delete=models.CASCADE, verbose_name='exam')
-    timestamp = models.DateTimeField(verbose_name='timestamp', default=timezone.now())
+    timestamp = models.DateTimeField(verbose_name='timestamp', default=timezone.now)
     log = models.FileField('exam log zip', upload_to='uploads/log_new/%Y/%m/%d/')
 
 
 class NewScore(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='user')
     exam = models.ForeignKey(Exam, on_delete=models.CASCADE, verbose_name='exam')
-    timestamp = models.DateTimeField(verbose_name='timestamp', default=timezone.now())
+    timestamp = models.DateTimeField(verbose_name='timestamp', default=timezone.now)
     score = models.FileField('exam score zip', upload_to='uploads/score/%Y/%m/%d/')
