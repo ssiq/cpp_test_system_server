@@ -64,7 +64,7 @@ def show_it(x):
 
 def show_download_solution(x):
     # import io
-    print 'solution_path:{}'.format(x['path'])
+    print 'Filename:{}'.format(x['filename'])
     with open('test.zip', 'wb+') as f:
         f.write(base64.b64decode(x['solution']))
 

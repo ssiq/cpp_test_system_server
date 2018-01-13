@@ -480,8 +480,10 @@ def download_solution(request):
         solution = result[0].solution
         solution.open('rb')
         solution_file = base64.b64encode(solution.read())
-
-        res = {'solution': solution_file, 'path': str(result[0].solution)}
+        file_name = str(result[0].solution).replace("\\", '/')
+        file_name = file_name.split('/')[-1]
+        print "File Name is: " + file_name
+        res = {'solution': solution_file, 'filename': file_name}
         res.update(ok_result)
         return JsonResponse(res)
     else:
