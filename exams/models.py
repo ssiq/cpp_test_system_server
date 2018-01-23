@@ -110,6 +110,7 @@ class SolutionVersion(models.Model):
     version = models.CharField(max_length=200, verbose_name='version', default='')
     timestamp = models.DateTimeField(verbose_name='timestamp', default=timezone.now)
     solution = models.FileField('exam solution zip', upload_to='uploads/solution/%Y/%m/%d/')
+    name = models.CharField(max_length=200, verbose_name='file name', default='')
 
 
 class NewLog(models.Model):

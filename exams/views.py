@@ -382,6 +382,7 @@ def save_solution(request, exam):
     solution = SolutionVersion.objects.create(user=request.user, exam=exam)
     solution.solution = solution_file
     solution.version = request.POST['version']
+    solution.name = solution_file.name
     solution.save()
 
 
